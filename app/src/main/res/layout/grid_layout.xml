@@ -9,8 +9,8 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="5dp"
+        android:layout_height="25dp"
+        android:layout_margin="1dp"
         android:background="#2196F3"
         android:backgroundTint="#2196F3"
         app:cardBackgroundColor="#2196F3"
@@ -35,7 +35,9 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

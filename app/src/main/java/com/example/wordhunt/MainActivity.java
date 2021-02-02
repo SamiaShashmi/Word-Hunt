@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        adapter = new Adapter(this, letters);
+        adapter = new Adapter(this, this, letters);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 8, GridLayoutManager.VERTICAL, false);
         dataList.setLayoutManager(gridLayoutManager);
         dataList.setAdapter(adapter);

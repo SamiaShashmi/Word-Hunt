@@ -1,10 +1,12 @@
 package com.example.wordhunt;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,9 +18,11 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     List<String> letters;
     LayoutInflater inflater;
+    Activity activity;
 
-    public Adapter(Context ctx, List<String> ltr)
+    public Adapter(Activity act, Context ctx, List<String> ltr)
     {
+        this.activity = act;
         this.letters = ltr;
         this.inflater = LayoutInflater.from(ctx);
     }
@@ -31,7 +35,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.letters.setText(letters.get(position));
+        holder.textLetter.setText(letters.get(position));
     }
 
     @Override
@@ -40,10 +44,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView letters;
+        TextView textLetter;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            letters = itemView.findViewById(R.id.letter);
+            textLetter = itemView.findViewById(R.id.letter);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TextView textFromWord = (TextView) activity.findViewById(R.id.madeWord);
+                    String word = textFromWord.getText().toString();
+                    textFromWord.setText(word + letters.get(getAdapterPosition()));
+                }
+            });
         }
     }
 }
