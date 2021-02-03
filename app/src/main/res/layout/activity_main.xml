@@ -13,6 +13,13 @@
         android:paddingTop="20dp"
         >
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:text="15"
+            android:textSize="50dp"
+            android:id="@+id/timer"
+            />
+        <TextView
             android:layout_width="75dp"
             android:layout_height="30dp"
             android:textAlignment="center"

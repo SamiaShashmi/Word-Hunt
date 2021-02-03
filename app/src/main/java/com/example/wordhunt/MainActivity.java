@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,11 +20,21 @@ public class MainActivity extends AppCompatActivity {
     List<String> letters;
     Adapter adapter;
     public static int totalLevelCount = 1;
+    private static final long totalTime = 16000;
+    private long timeLeftinMiliSec = totalTime;
+    private TextView countdownText;
+    private CountDownTimer countDownTimer;
+
+    private boolean timeRunning;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         gridGenerator();
+
+        countdownText = findViewById(R.id.timer);
+        startTimer();
+        updateCountDownText();
 
 
     }
@@ -58,5 +69,38 @@ public class MainActivity extends AppCompatActivity {
         TextView prevWord = (TextView) findViewById(R.id.madeWord);
         prevWord.setText("");
         gridGenerator();
+        resetTimer();
+    }
+
+    private void startTimer()
+    {
+        countDownTimer = new CountDownTimer(timeLeftinMiliSec, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftinMiliSec = millisUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                timeRunning = false;
+            }
+        }.start();
+        timeRunning = true;
+    }
+
+    private void updateCountDownText()
+    {
+        int seconds = (int) timeLeftinMiliSec / 1000;
+        String timeLeft = String.format("%02d", seconds);
+        countdownText.setText(timeLeft);
+    }
+
+    private void resetTimer()
+    {
+        countDownTimer.cancel();
+        timeLeftinMiliSec = totalTime;
+        startTimer();
+        updateCountDownText();
     }
 }
