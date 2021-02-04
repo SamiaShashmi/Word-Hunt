@@ -4,10 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     List<String> letters;
     Adapter adapter;
     public static int totalLevelCount = 1;
+    public static int lifeCount = 3;
     private static final long totalTime = 16000;
     private long timeLeftinMiliSec = totalTime;
     private TextView countdownText;
@@ -45,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         letters = new ArrayList<>();
         Random r = new Random();
 
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
         for (int i = 0; i < 64; i++) {
             char rand = alphabet.charAt(r.nextInt(alphabet.length()));
             letters.add("" + rand);
@@ -63,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
         totalLevelCount++;
         TextView textLevel = (TextView) findViewById(R.id.levelCount);
         String totalString = textLevel.getText().toString();
-        String levelString = totalString.substring(0, totalString.length() - 4);
+        String levelString = totalString.substring(0, totalString.length() - 3);
         int currentlevel = Integer.parseInt(levelString) + 1;
-        String newLevel = Integer.toString(currentlevel) + "/100";
+        String newLevel = Integer.toString(currentlevel) + "/50";
         textLevel.setText(newLevel);
         TextView prevWord = (TextView) findViewById(R.id.madeWord);
         prevWord.setText("");
@@ -97,16 +104,11 @@ public class MainActivity extends AppCompatActivity {
         countdownText.setText(timeLeft);
         if(seconds == 1)
         {
-            timeLeft = String.format("%02d", seconds);
-            countdownText.setText(timeLeft);
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    levelChange();
-                    decrementLife();
-                }
-            }, 1000);
-
+            newCountDown(seconds, timeLeft);
+        }
+        if(seconds <= 5)
+        {
+            clockBlink();
         }
     }
     private void levelChange()
@@ -114,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
         totalLevelCount++;
         TextView textLevel = (TextView) findViewById(R.id.levelCount);
         String totalString = textLevel.getText().toString();
-        String levelString = totalString.substring(0, totalString.length() - 4);
+        String levelString = totalString.substring(0, totalString.length() - 3);
         int currentlevel = Integer.parseInt(levelString) + 1;
-        String newLevel = Integer.toString(currentlevel) + "/100";
+        String newLevel = Integer.toString(currentlevel) + "/50";
         textLevel.setText(newLevel);
         TextView prevWord = (TextView) findViewById(R.id.madeWord);
         prevWord.setText("");
@@ -134,11 +136,46 @@ public class MainActivity extends AppCompatActivity {
 
     private void decrementLife()
     {
-        TextView life = (TextView) findViewById(R.id.life);
-        String lifeString = life.getText().toString();
-        int lifeCount = Integer.parseInt(lifeString);
-        lifeCount--;
-        lifeString = Integer.toString(lifeCount);
-        life.setText(lifeString);
+        if(lifeCount == 3)
+        {
+            ImageView life3 = findViewById(R.id.life3);
+            life3.setVisibility(View.INVISIBLE);
+            lifeCount--;
+        }
+        else if(lifeCount == 2)
+        {
+            ImageView life2 = findViewById(R.id.life2);
+            life2.setVisibility(View.INVISIBLE);
+            lifeCount--;
+        }
+
+    }
+    private void newCountDown(int seconds, String timeLeft)
+    {
+        timeLeft = String.format("%02d", seconds);
+        countdownText.setText(timeLeft);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                levelChange();
+                decrementLife();
+            }
+        }, 1000);
+    }
+
+    private void clockBlink()
+    {
+       /* Animation animation;
+        animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.clock_blink);
+        ImageView clock = findViewById(R.id.clock);
+        clock.startAnimation(animation);*/
+        ImageView clock = findViewById(R.id.clock);
+        Animation animation = new AlphaAnimation(1, 0); //to change visibility from visible to invisible
+        animation.setDuration(600); //1 second duration for each animation cycle
+        animation.setInterpolator(new LinearInterpolator());
+        //animation.setRepeatCount(Animation.INFINITE); //repeating indefinitely
+        animation.setRepeatMode(Animation.REVERSE); //animation will start from end point once ended.
+        clock.startAnimation(animation); //to start animation
+
     }
 }

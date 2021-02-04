@@ -23,6 +23,7 @@
                 android:layout_height="30dp"
                 android:src="@drawable/ic_clock"
                 android:layout_margin="5dp"
+                android:id="@+id/clock"
                 />
             <TextView
                 android:id="@+id/timer"
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:fontFamily="@font/marko_one"
-            android:text="1/100"
+            android:text="1/50"
             android:textColor="@color/blue"
             android:textSize="25dp"
             android:textAlignment="center"
@@ -62,14 +63,22 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 />
-            <TextView
-                android:id="@+id/life"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:fontFamily="@font/marko_one"
-                android:textColor="@color/blue"
-                android:text="3"
-                android:textSize="25dp"/>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_heart"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/life2"
+                />
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_heart"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/life3"
+                />
         </LinearLayout>
 
 
