@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,6 +95,33 @@ public class MainActivity extends AppCompatActivity {
         int seconds = (int) timeLeftinMiliSec / 1000;
         String timeLeft = String.format("%02d", seconds);
         countdownText.setText(timeLeft);
+        if(seconds == 1)
+        {
+            timeLeft = String.format("%02d", seconds);
+            countdownText.setText(timeLeft);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    levelChange();
+                    decrementLife();
+                }
+            }, 1000);
+
+        }
+    }
+    private void levelChange()
+    {
+        totalLevelCount++;
+        TextView textLevel = (TextView) findViewById(R.id.levelCount);
+        String totalString = textLevel.getText().toString();
+        String levelString = totalString.substring(0, totalString.length() - 4);
+        int currentlevel = Integer.parseInt(levelString) + 1;
+        String newLevel = Integer.toString(currentlevel) + "/100";
+        textLevel.setText(newLevel);
+        TextView prevWord = (TextView) findViewById(R.id.madeWord);
+        prevWord.setText("");
+        gridGenerator();
+        resetTimer();
     }
 
     private void resetTimer()
@@ -102,5 +130,15 @@ public class MainActivity extends AppCompatActivity {
         timeLeftinMiliSec = totalTime;
         startTimer();
         updateCountDownText();
+    }
+
+    private void decrementLife()
+    {
+        TextView life = (TextView) findViewById(R.id.life);
+        String lifeString = life.getText().toString();
+        int lifeCount = Integer.parseInt(lifeString);
+        lifeCount--;
+        lifeString = Integer.toString(lifeCount);
+        life.setText(lifeString);
     }
 }
