@@ -5,40 +5,82 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/background">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="horizontal"
-        android:paddingTop="20dp"
         >
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_clock"
+                android:layout_margin="5dp"
+                />
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:fontFamily="@font/marko_one"
+                android:textColor="@color/blue"
+                android:text="15"
+                android:textSize="30dp" />
+        </LinearLayout>
+
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:text="15"
-            android:textSize="50dp"
-            android:id="@+id/timer"
-            />
-        <TextView
-            android:layout_width="75dp"
-            android:layout_height="30dp"
-            android:textAlignment="center"
-            android:text="1/100"
-            android:textSize="20dp"
             android:id="@+id/levelCount"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:fontFamily="@font/marko_one"
+            android:text="1/100"
+            android:textColor="@color/blue"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:padding="8dp"
+            android:layout_gravity="center_vertical"
             />
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/ic_heart"
-            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            >
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_heart"
+                android:layout_marginRight="5dp"
+                />
+            <TextView
+                android:id="@+id/life"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:fontFamily="@font/marko_one"
+                android:textColor="@color/blue"
+                android:text="3"
+                android:textSize="25dp"/>
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         >
 
         <androidx.recyclerview.widget.RecyclerView
@@ -65,18 +107,27 @@
             android:orientation="horizontal">
             <TextView
                 android:layout_width="150dp"
-                android:layout_height="60dp"
-                android:textColor="@color/teal_700"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
                 android:textSize="25dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 tools:ignore="MissingConstraints"
-                android:id="@+id/madeWord"/>
+                android:id="@+id/madeWord"
+                android:fontFamily="@font/marko_one"
+                android:background="@color/white"
+                android:padding="5dp"/>
             <Button
-                android:layout_width="150dp"
+                android:layout_width="125dp"
                 android:layout_height="60dp"
                 android:text="Submit"
+                android:textSize="15dp"
                 tools:ignore="MissingConstraints"
-                android:onClick="levelUp"/>
+                android:fontFamily="@font/marko_one"
+                android:onClick="levelUp"
+                android:backgroundTint="#107FD6"
+                android:textColor="@color/white"
+                android:layout_marginLeft="15dp"/>
         </LinearLayout>
 
 
