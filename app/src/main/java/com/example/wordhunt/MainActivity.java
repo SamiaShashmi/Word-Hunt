@@ -183,7 +183,10 @@ public class MainActivity extends AppCompatActivity {
         if(seconds <= 5)
         {
             clockBlink();
-            highlight();
+        }
+        if(seconds <= 8)
+        {
+            bulbScale();
         }
     }
 
@@ -255,22 +258,58 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void highlight()
+    public void highlight(View view)
     {
+
         RecyclerView recyclerView = findViewById(R.id.dataList);
         View highlight1 = recyclerView.findViewHolderForAdapterPosition(10).itemView;
         View highlight2 = recyclerView.findViewHolderForAdapterPosition(20).itemView;
         View highlight3 = recyclerView.findViewHolderForAdapterPosition(40).itemView;
         View highlight4 = recyclerView.findViewHolderForAdapterPosition(50).itemView;
-        Animation animation = new ScaleAnimation(
+        /*Animation animation = new ScaleAnimation(
                 1f, 1.2f, // Start and end values for the X axis scaling
                 1f, 1.2f, // Start and end values for the Y axis scaling
                 Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
                 Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
         animation.setDuration(1000);
+        animation.setRepeatCount(4);
         highlight1.startAnimation(animation);
         highlight2.startAnimation(animation);
         highlight3.startAnimation(animation);
-        highlight4.startAnimation(animation);
+        highlight4.startAnimation(animation);*/
+        highlight1.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
+        highlight2.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
+        highlight3.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
+        highlight4.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
+        if(lifeCount == 3)
+        {
+            ImageView life3 = findViewById(R.id.life3);
+            life3.setVisibility(View.INVISIBLE);
+            lifeCount--;
+        }
+        else if(lifeCount == 2)
+        {
+            ImageView life2 = findViewById(R.id.life2);
+            life2.setVisibility(View.INVISIBLE);
+            lifeCount--;
+        }
+    }
+
+    public void deleteMadeWord(View view) {
+        TextView madeWordText = findViewById(R.id.madeWord);
+        String madeWordString = madeWordText.getText().toString();
+        madeWordString = madeWordString.substring(0, madeWordString.length() - 1);
+        madeWordText.setText(madeWordString);
+    }
+    private void bulbScale()
+    {
+        ImageView bulb = findViewById(R.id.bulb);
+        Animation animation = new ScaleAnimation(
+                1f, 1.1f, // Start and end values for the X axis scaling
+                1f, 1.1f, // Start and end values for the Y axis scaling
+                Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
+                Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+        animation.setDuration(500);
+        bulb.startAnimation(animation);
     }
 }
