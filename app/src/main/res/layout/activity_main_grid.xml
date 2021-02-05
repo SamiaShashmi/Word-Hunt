@@ -134,7 +134,7 @@
                 android:textSize="15dp"
                 tools:ignore="MissingConstraints"
                 android:fontFamily="@font/marko_one"
-                android:onClick="levelUp"
+                android:onClick="checkValidity"
                 android:backgroundTint="#107FD6"
                 android:textColor="@color/white"
                 android:layout_marginLeft="15dp"/>
@@ -165,6 +165,8 @@
             />
 
     </LinearLayout>
+
+
 
 
 

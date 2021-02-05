@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="475dp"
+    android:background="@drawable/popupbackground"
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4d78a2cc"
+        android:padding="5dp"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Good Job!!"
+            android:textStyle="italic"
+            android:textColor="#5AC2F1"
+            android:fontFamily="@font/marko_one"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:textSize="35dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:fontFamily="@font/marko_one"
+            android:textSize="30dp"
+            android:id="@+id/foundWord"/>
+        <!--<Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ffffff"
+            android:text="Click here to learn:"
+            android:textColor="#5AC2F1"
+            android:layout_gravity="center"
+            android:fontFamily="@font/marko_one"
+            android:textStyle="italic"
+            android:textSize="15dp"
+            android:id="@+id/showDefBtn"
+            android:layout_marginTop="20dp"
+            android:onClick="showMeaning"/>-->
+
+
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:fontFamily="@font/marko_one"
+            android:textSize="20dp"
+            android:id="@+id/meanings"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#061257"
+            android:text="Next Level"
+            android:textSize="25dp"
+            android:textStyle="italic"
+            android:fontFamily="@font/marko_one"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:id="@+id/successBtn"
+            android:onClick="successLevelChange"/>
+    </LinearLayout>
+
+</LinearLayout>
