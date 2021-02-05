@@ -1,22 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Help7"
-    android:background="@drawable/background">
+    tools:context=".Help2"
+    android:background="@drawable/help_background"
+    android:orientation="vertical">
 
 
-    <Button
-        android:id="@+id/next6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="141dp"
-        android:layout_marginBottom="194dp"
-        android:text="Next"
-        android:textColor="#55D1FB"
-        app:backgroundTint="#FFFFFF" />
-</RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="510dp"
+        android:background="@color/helpBackgound"
+        android:padding="20dp"
+        android:orientation="horizontal"
+        android:gravity="right">
+        <Button
+            android:id="@+id/next6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textColor="@color/white"
+            android:fontFamily="@font/marko_one"
+            app:backgroundTint="@color/button"
+            android:layout_marginTop="400dp"/>
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="If you don't find any valid word, we can help you..But you have to lose a life.."
+            android:textSize="25dp"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/marko_one"
+            android:gravity="right"
+            android:layout_gravity="bottom"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginRight="70dp"
+        android:background="@color/helpBackgound"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/helpBackgound"/>
+
+</LinearLayout>

@@ -13,12 +13,12 @@ public class Help3 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help3);
-        next=findViewById(R.id.next3);
+        setContentView(R.layout.activity_help2);
+        next=findViewById(R.id.next2);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent4 = new Intent(Help3.this, Help4.class);
+                Intent intent4 = new Intent( Help3.this,Help4.class);
                 startActivity(intent4);
             }
         });

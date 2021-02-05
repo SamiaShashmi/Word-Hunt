@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Help4"
-    android:background="@drawable/background">
+    tools:context=".Help2"
+    android:background="@drawable/help_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="100dp"
+        android:background="@color/helpBackgound"
+        />
 
 
-    <Button
-        android:id="@+id/next3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="298dp"
-        android:layout_marginBottom="408dp"
-        android:text="Next"
-        android:textColor="#55D1FB"
-        app:backgroundTint="#FFFFFF" />
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/helpBackgound"
+        android:padding="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/next3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/button" />
+
+    </LinearLayout>
+
+</LinearLayout>
