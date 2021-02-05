@@ -9,6 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WordHunt">
+        <activity android:name=".Help7"></activity>
+        <activity android:name=".Help4" />
+        <activity android:name=".Help1" />
+        <activity android:name=".Help" />
+        <activity android:name=".Help6" />
+        <activity android:name=".Help5" />
+        <activity android:name=".Help2" />
+        <activity android:name=".Resume" />
+        <activity android:name=".HighScore" />
+        <activity android:name=".mainGrid" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

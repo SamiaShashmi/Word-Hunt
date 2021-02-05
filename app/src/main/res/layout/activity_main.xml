@@ -1,175 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:background="@drawable/background">
+    android:gravity="center"
+    tools:context=".MainActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        >
-        <LinearLayout
-            android:layout_width="125dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="8dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_clock"
-                android:layout_margin="5dp"
-                android:id="@+id/clock"
-                />
-            <TextView
-                android:id="@+id/timer"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:fontFamily="@font/marko_one"
-                android:textColor="@color/blue"
-                android:text="15"
-                android:textSize="30dp" />
-        </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/background" >
 
 
         <TextView
-            android:id="@+id/levelCount"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/marko_one"
-            android:text="1/50"
+            android:text="Word Hunt"
+            android:textSize="50dp"
             android:textColor="@color/blue"
-            android:textSize="25dp"
-            android:textAlignment="center"
-            android:padding="8dp"
-            android:layout_gravity="center_vertical"
+            android:textStyle="italic"
+
             />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="30dp"
-            >
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/ic_heart"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                />
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/ic_heart"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:id="@+id/life2"
-                />
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/ic_heart"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:id="@+id/life3"
-                />
-        </LinearLayout>
+
+        <Button
+            android:id="@+id/newgame"
+            android:layout_width="288dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:color="#771C1C"
+            android:text="New Game"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/marko_one"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:backgroundTint="#f8f8ff" />
+
+        <Button
+            android:id="@+id/resume"
+            android:layout_width="288dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:color="#771C1C"
+            android:text="Resume"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/marko_one"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:backgroundTint="#f8f8ff" />
+
+        <Button
+            android:id="@+id/highscore"
+            android:layout_width="288dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:color="#771C1C"
+            android:text="High Score"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/marko_one"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:backgroundTint="#f8f8ff"/>
+
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="288dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:color="#771C1C"
+            android:text="Exit"
+            android:fontFamily="@font/marko_one"
+            android:textColor="@color/blue"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:backgroundTint="#f8f8ff" />
+
+        <Button
+            android:id="@+id/help"
+            android:layout_width="288dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="Help"
+            android:fontFamily="@font/marko_one"
+            android:textColor="@color/blue"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:backgroundTint="#F8F6F6" />
 
 
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        >
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dataList"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".MainActivity">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/blue"
-                android:textSize="25dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                tools:ignore="MissingConstraints"
-                android:id="@+id/madeWord"
-                android:fontFamily="@font/marko_one"
-                android:background="@color/white"
-                android:padding="5dp"/>
-            <Button
-                android:layout_width="125dp"
-                android:layout_height="60dp"
-                android:text="Submit"
-                android:textSize="15dp"
-                tools:ignore="MissingConstraints"
-                android:fontFamily="@font/marko_one"
-                android:onClick="levelUp"
-                android:backgroundTint="#107FD6"
-                android:textColor="@color/white"
-                android:layout_marginLeft="15dp"/>
-        </LinearLayout>
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_backspace"
-            android:layout_marginLeft="130dp"
-            android:onClick="deleteMadeWord"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_lightbulb"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="10dp"
-            android:onClick="highlight"
-            android:id="@+id/bulb"
-            />
-
-    </LinearLayout>
-
-
-
-</LinearLayout>
-
-
-
-
+</RelativeLayout>
