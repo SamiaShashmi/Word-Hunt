@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WordHunt">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ResumeGrid"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".Help7" />
         <activity android:name=".Help4" />
         <activity android:name=".Help1" />

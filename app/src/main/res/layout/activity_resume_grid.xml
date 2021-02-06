@@ -23,10 +23,10 @@
                 android:layout_height="30dp"
                 android:src="@drawable/ic_clock"
                 android:layout_margin="5dp"
-                android:id="@+id/clock"
+                android:id="@+id/resumeclock"
                 />
             <TextView
-                android:id="@+id/timer"
+                android:id="@+id/resumetimer"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:fontFamily="@font/marko_one"
@@ -37,7 +37,7 @@
 
 
         <TextView
-            android:id="@+id/levelCount"
+            android:id="@+id/resumelevelCount"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -62,7 +62,7 @@
                 android:src="@drawable/ic_heart"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:id="@+id/life1"
+                android:id="@+id/resumelife1"
                 />
             <ImageView
                 android:layout_width="25dp"
@@ -70,7 +70,7 @@
                 android:src="@drawable/ic_heart"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:id="@+id/life2"
+                android:id="@+id/resumelife2"
                 />
             <ImageView
                 android:layout_width="25dp"
@@ -78,7 +78,7 @@
                 android:src="@drawable/ic_heart"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:id="@+id/life3"
+                android:id="@+id/resumelife3"
                 />
         </LinearLayout>
 
@@ -101,7 +101,7 @@
             android:layout_marginRight="30dp"
             android:text="00"
             android:textSize="25dp"
-            android:id="@+id/score"
+            android:id="@+id/resumescore"
             />
     </LinearLayout>
 
@@ -117,7 +117,7 @@
         >
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dataList"
+            android:id="@+id/resumedataList"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -146,7 +146,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 tools:ignore="MissingConstraints"
-                android:id="@+id/madeWord"
+                android:id="@+id/resumemadeWord"
                 android:fontFamily="@font/marko_one"
                 android:background="@color/white"
                 android:padding="5dp"/>
@@ -184,7 +184,7 @@
             android:layout_marginLeft="130dp"
             android:layout_marginTop="10dp"
             android:onClick="highlight"
-            android:id="@+id/bulb"
+            android:id="@+id/resumebulb"
             />
 
     </LinearLayout>

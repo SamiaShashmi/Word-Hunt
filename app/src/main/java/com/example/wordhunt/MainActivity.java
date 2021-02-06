@@ -2,10 +2,12 @@ package com.example.wordhunt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     Button HighScore;
     Button Exit;
     Button Help;
+    Dialog playerNameWindow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,11 +26,14 @@ public class MainActivity extends AppCompatActivity {
         HighScore=findViewById(R.id.highscore);
         Exit=findViewById(R.id.exit);
         Help=findViewById(R.id.help);
+
+        playerNameWindow = new Dialog(MainActivity.this);
+        playerNameWindow.setContentView(R.layout.player_info_pop_up);
+
         NewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, mainGrid.class);
-                startActivity(intent);
+                playerNameWindow.show();
             }
         });
         /*Resume.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +71,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
+    public void openGame(View view)
+    {
+        EditText e = playerNameWindow.findViewById(R.id.playerName);
+        String playerNameFromPopUp = e.getText().toString();
+        playerNameWindow.dismiss();
+        Intent intent = new Intent(MainActivity.this, mainGrid.class);
+        intent.putExtra("playerName", playerNameFromPopUp);
+        startActivity(intent);
+    }
 
 }
 

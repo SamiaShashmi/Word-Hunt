@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:background="@drawable/popupback"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Your name, please:"
+        android:textColor="@color/white"
+        android:fontFamily="@font/marko_one"
+        android:textSize="18dp"/>
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:background="@color/white"
+        android:textSize="20dp"
+        android:textColor="@color/blue"
+        android:fontFamily="@font/marko_one"
+        android:layout_marginTop="10dp"
+        android:id="@+id/playerName"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:backgroundTint="@color/button"
+        android:fontFamily="@font/marko_one"
+        android:layout_marginTop="25dp"
+        android:onClick="openGame"
+        />
+
+</LinearLayout>

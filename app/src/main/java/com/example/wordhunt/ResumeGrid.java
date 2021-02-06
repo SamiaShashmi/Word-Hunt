@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class mainGrid extends AppCompatActivity {
+public class ResumeGrid extends AppCompatActivity {
 
     RecyclerView dataList;
     List<String> letters;
@@ -35,7 +35,7 @@ public class mainGrid extends AppCompatActivity {
     public static int lifeCount;
     public static boolean isAccepted = false;
     private static final long totalTime = 16000;
-    public static long timeLeftinMiliSec = totalTime;
+    private long timeLeftinMiliSec;
     private TextView countdownText;
     public static CountDownTimer countDownTimer;
     public static boolean isFinished = false;
@@ -43,7 +43,7 @@ public class mainGrid extends AppCompatActivity {
     public Dialog failureWindow;
     public Dialog gameOverWindow;
     public Dialog playerNameWindow;
-    public static int score = 0;
+    public static int score;
     private TextView scoreText;
     public static boolean isOver;
     public String nameString;
@@ -55,13 +55,15 @@ public class mainGrid extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_grid);
         gridGenerator(totalLevelCount);
-        lifeCount = 3;
-        totalLevelCount = 1;
-        isOver = false;
-        countdownText = findViewById(R.id.timer);
+        lifeCount = mainGrid.lifeCount;
+        totalLevelCount = mainGrid.totalLevelCount;
+        isOver = mainGrid.isOver;
+        timeLeftinMiliSec = mainGrid.timeLeftinMiliSec;
+        score = mainGrid.score;
+        countdownText = findViewById(R.id.resumetimer);
         startTimer();
         updateCountDownText();
-        scoreText = findViewById(R.id.score);
+        scoreText = findViewById(R.id.resumescore);
 
         successWindow = new Dialog(this);
         successWindow.setContentView(R.layout.success_pop_up);
@@ -84,7 +86,7 @@ public class mainGrid extends AppCompatActivity {
 
     }
     public void gridGenerator(int totalLevelCount){
-        dataList = findViewById(R.id.dataList);
+        dataList = findViewById(R.id.resumedataList);
 
         letters = new ArrayList<>();
         Random r = new Random();
@@ -215,13 +217,13 @@ public class mainGrid extends AppCompatActivity {
     public void levelChange()
     {
         totalLevelCount++;
-        TextView textLevel = (TextView) findViewById(R.id.levelCount);
+        TextView textLevel = (TextView) findViewById(R.id.resumelevelCount);
         String totalString = textLevel.getText().toString();
         String levelString = totalString.substring(0, totalString.length() - 3);
         int currentlevel = Integer.parseInt(levelString) + 1;
         String newLevel = Integer.toString(currentlevel) + "/50";
         textLevel.setText(newLevel);
-        TextView prevWord = (TextView) findViewById(R.id.madeWord);
+        TextView prevWord = (TextView) findViewById(R.id.resumemadeWord);
         prevWord.setText("");
         gridGenerator(totalLevelCount);
         resetTimer();
@@ -240,18 +242,18 @@ public class mainGrid extends AppCompatActivity {
         lifeCount--;
         if(lifeCount == 2)
         {
-            ImageView life3 = findViewById(R.id.life3);
+            ImageView life3 = findViewById(R.id.resumelife3);
             life3.setVisibility(View.INVISIBLE);
 
         }
         else if(lifeCount == 1)
         {
-            ImageView life2 = findViewById(R.id.life2);
+            ImageView life2 = findViewById(R.id.resumelife2);
             life2.setVisibility(View.INVISIBLE);
         }
         if(lifeCount == 0)
         {
-            ImageView life2 = findViewById(R.id.life1);
+            ImageView life2 = findViewById(R.id.resumelife1);
             life2.setVisibility(View.INVISIBLE);
             showGameOverWindow();
         }
@@ -278,7 +280,7 @@ public class mainGrid extends AppCompatActivity {
     public void cancelGOPopUp()
     {
         gameOverWindow.cancel();
-        Intent intent = new Intent(mainGrid.this, MainActivity.class);
+        Intent intent = new Intent(ResumeGrid.this, MainActivity.class);
         startActivity(intent);
     }
     private void newCountDown(int seconds, String timeLeft)
@@ -304,7 +306,7 @@ public class mainGrid extends AppCompatActivity {
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.clock_blink);
         ImageView clock = findViewById(R.id.clock);
         clock.startAnimation(animation);*/
-        ImageView clock = findViewById(R.id.clock);
+        ImageView clock = findViewById(R.id.resumeclock);
         Animation animation = new AlphaAnimation(1, 0); //to change visibility from visible to invisible
         animation.setDuration(600); //1 second duration for each animation cycle
         animation.setInterpolator(new LinearInterpolator());
@@ -317,7 +319,7 @@ public class mainGrid extends AppCompatActivity {
     public void highlight(View view)
     {
 
-        RecyclerView recyclerView = findViewById(R.id.dataList);
+        RecyclerView recyclerView = findViewById(R.id.resumedataList);
         View highlight1 = recyclerView.findViewHolderForAdapterPosition(10).itemView;
         View highlight2 = recyclerView.findViewHolderForAdapterPosition(20).itemView;
         View highlight3 = recyclerView.findViewHolderForAdapterPosition(40).itemView;
@@ -353,14 +355,14 @@ public class mainGrid extends AppCompatActivity {
     }
 
     public void deleteMadeWord(View view) {
-        TextView madeWordText = findViewById(R.id.madeWord);
+        TextView madeWordText = findViewById(R.id.resumemadeWord);
         String madeWordString = madeWordText.getText().toString();
         madeWordString = madeWordString.substring(0, madeWordString.length() - 1);
         madeWordText.setText(madeWordString);
     }
     private void bulbScale()
     {
-        ImageView bulb = findViewById(R.id.bulb);
+        ImageView bulb = findViewById(R.id.resumebulb);
         Animation animation = new ScaleAnimation(
                 1f, 1.1f, // Start and end values for the X axis scaling
                 1f, 1.1f, // Start and end values for the Y axis scaling
@@ -372,7 +374,7 @@ public class mainGrid extends AppCompatActivity {
     public void checkValidity(View view) throws InterruptedException {
         countDownTimer.cancel();
         TextView meaning = successWindow.findViewById(R.id.meanings);
-        DictionaryRequest dR = new DictionaryRequest(this, meaning, mainGrid.this);
+        ResumeDictionaryRequest dR = new ResumeDictionaryRequest(this, meaning, ResumeGrid.this);
         url = dictionaryEntries();
         dR.execute(url);
         //TimeUnit.SECONDS.sleep(5);
@@ -406,7 +408,7 @@ public class mainGrid extends AppCompatActivity {
     {
         TextView meaning = successWindow.findViewById(R.id.meanings);
         meaning.setText(str);
-        TextView madeword = findViewById(R.id.madeWord);
+        TextView madeword = findViewById(R.id.resumemadeWord);
         TextView foundWord = successWindow.findViewById(R.id.foundWord);
         foundWord.setText(madeword.getText().toString());
         score += madeword.getText().toString().length();
@@ -432,7 +434,7 @@ public class mainGrid extends AppCompatActivity {
     }
 
     private String dictionaryEntries() {
-        TextView madeword = findViewById(R.id.madeWord);
+        TextView madeword = findViewById(R.id.resumemadeWord);
         /*Dialog successWindow;
         successWindow = new Dialog(this);
         successWindow.setContentView(R.layout.success_pop_up);
