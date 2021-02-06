@@ -4,9 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,18 +12,14 @@ import android.os.Handler;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class mainGrid extends AppCompatActivity {
 
@@ -34,7 +27,7 @@ public class mainGrid extends AppCompatActivity {
     List<String> letters;
     Adapter adapter;
     String url;
-    public static int totalLevelCount = 1;
+    public static int totalLevelCount;
     public static int lifeCount;
     public static boolean isAccepted = false;
     private static final long totalTime = 16000;
@@ -47,7 +40,7 @@ public class mainGrid extends AppCompatActivity {
     public Dialog gameOverWindow;
     public static int score = 0;
     private TextView scoreText;
-    public static boolean isOver = false;
+    public static boolean isOver;
 
     private boolean timeRunning;
     @Override
@@ -56,6 +49,8 @@ public class mainGrid extends AppCompatActivity {
         setContentView(R.layout.activity_main_grid);
         gridGenerator(totalLevelCount);
         lifeCount = 3;
+        totalLevelCount = 1;
+        isOver = false;
         countdownText = findViewById(R.id.timer);
         startTimer();
         updateCountDownText();
@@ -82,7 +77,7 @@ public class mainGrid extends AppCompatActivity {
         String forDivByFour = "plan";
         String forDivByThree = "goat";
         String forRest = "seat";
-        for (int i = 0; i < 64; i++) {
+        for (int i = 0; i < 56; i++) {
             if(i == 10 || i == 20 || i == 40 || i == 50)
             {
                 if(totalLevelCount % 5 == 0 && i == 10){
@@ -253,7 +248,7 @@ public class mainGrid extends AppCompatActivity {
     public void cancelGOPopUp()
     {
         gameOverWindow.cancel();
-        Intent intent = new Intent(mainGrid.this, MainActivity.class);
+        Intent intent = new Intent(mainGrid.this, SplashScreen.class);
         startActivity(intent);
     }
     private void newCountDown(int seconds, String timeLeft)
@@ -402,7 +397,7 @@ public class mainGrid extends AppCompatActivity {
                 }
 
             }
-        }, 2000);
+        }, 3000);
 
     }
 

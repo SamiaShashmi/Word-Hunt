@@ -18,7 +18,7 @@ public class Help7 extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent4 = new Intent(Help7.this, MainActivity.class);
+                Intent intent4 = new Intent(Help7.this, SplashScreen.class);
                 startActivity(intent4);
             }
         });
