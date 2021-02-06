@@ -79,12 +79,16 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
 
             def = d.getString(0);
             meaning.setText(def);
-            mainGrid.countDownTimer.cancel();
+            //mainGrid.countDownTimer.cancel();
             mngrd.showSuccessPopUp(def);
 
             mainGrid.isAccepted = true;
         } catch (JSONException e) {
-            mngrd.levelChange();
+            try {
+                mngrd.showFailurePopUp();
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             mngrd.decrementLife();
             //meaning.setText("null");
             e.printStackTrace();

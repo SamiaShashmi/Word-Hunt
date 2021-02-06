@@ -3,21 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="350dp"
     android:layout_height="475dp"
-    android:background="@drawable/popupbackground"
+    android:background="@drawable/popupback"
+    android:padding="5dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
    >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#4d78a2cc"
-        android:padding="5dp"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Good Job!!"
             android:textStyle="italic"
-            android:textColor="#5AC2F1"
+            android:textColor="@color/white"
             android:fontFamily="@font/marko_one"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
@@ -64,7 +61,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#061257"
+            android:backgroundTint="@color/button"
             android:text="Next Level"
             android:textSize="25dp"
             android:textStyle="italic"
@@ -75,4 +72,3 @@
             android:onClick="successLevelChange"/>
     </LinearLayout>
 
-</LinearLayout>

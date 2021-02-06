@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="300dp"
+    android:background="@drawable/popupback"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Game Over!!"
+        android:textStyle="italic"
+        android:textColor="@color/white"
+        android:fontFamily="@font/marko_one"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:textSize="35dp"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Score: "
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:fontFamily="@font/marko_one"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:fontFamily="@font/marko_one"
+            android:id="@+id/totalScore"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Menu"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/button"
+        android:fontFamily="@font/marko_one"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        android:onClick="cancelGOPopUp"/>
+
+
+</LinearLayout>

@@ -8,6 +8,7 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +42,12 @@ public class mainGrid extends AppCompatActivity {
     private TextView countdownText;
     public static CountDownTimer countDownTimer;
     public static boolean isFinished = false;
+    public Dialog successWindow;
+    public Dialog failureWindow;
+    public Dialog gameOverWindow;
+    public static int score = 0;
+    private TextView scoreText;
+    public static boolean isOver = false;
 
     private boolean timeRunning;
     @Override
@@ -51,7 +59,16 @@ public class mainGrid extends AppCompatActivity {
         countdownText = findViewById(R.id.timer);
         startTimer();
         updateCountDownText();
+        scoreText = findViewById(R.id.score);
 
+        successWindow = new Dialog(this);
+        successWindow.setContentView(R.layout.success_pop_up);
+
+        failureWindow = new Dialog(this);
+        failureWindow.setContentView(R.layout.failure_pop_up);
+
+        gameOverWindow = new Dialog(this);
+        gameOverWindow.setContentView(R.layout.game_over_pop_up);
 
     }
     public void gridGenerator(int totalLevelCount){
@@ -208,19 +225,36 @@ public class mainGrid extends AppCompatActivity {
 
     public void decrementLife()
     {
-        if(lifeCount == 3)
+        lifeCount--;
+        if(lifeCount == 2)
         {
             ImageView life3 = findViewById(R.id.life3);
             life3.setVisibility(View.INVISIBLE);
-            lifeCount--;
+
         }
-        else if(lifeCount == 2)
+        else if(lifeCount == 1)
         {
             ImageView life2 = findViewById(R.id.life2);
             life2.setVisibility(View.INVISIBLE);
-            lifeCount--;
+        }
+        if(lifeCount == 0)
+        {
+            showGameOverWindow();
         }
 
+    }
+
+    private void showGameOverWindow()
+    {
+        isOver = true;
+        gameOverWindow.show();
+        countDownTimer.cancel();
+    }
+    public void cancelGOPopUp()
+    {
+        gameOverWindow.cancel();
+        Intent intent = new Intent(mainGrid.this, MainActivity.class);
+        startActivity(intent);
     }
     private void newCountDown(int seconds, String timeLeft)
     {
@@ -229,7 +263,11 @@ public class mainGrid extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                levelChange();
+                try {
+                    showFailurePopUp();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 decrementLife();
             }
         }, 1000);
@@ -306,9 +344,7 @@ public class mainGrid extends AppCompatActivity {
         bulb.startAnimation(animation);
     }
     public void checkValidity(View view) throws InterruptedException {
-        Dialog successWindow;
-        successWindow = new Dialog(this);
-        successWindow.setContentView(R.layout.success_pop_up);
+        countDownTimer.cancel();
         TextView meaning = successWindow.findViewById(R.id.meanings);
         DictionaryRequest dR = new DictionaryRequest(this, meaning, mainGrid.this);
         url = dictionaryEntries();
@@ -342,15 +378,32 @@ public class mainGrid extends AppCompatActivity {
 
     public void showSuccessPopUp(String str)
     {
-        Dialog successWindow;
-        successWindow = new Dialog(this);
-        successWindow.setContentView(R.layout.success_pop_up);
         TextView meaning = successWindow.findViewById(R.id.meanings);
         meaning.setText(str);
         TextView madeword = findViewById(R.id.madeWord);
         TextView foundWord = successWindow.findViewById(R.id.foundWord);
         foundWord.setText(madeword.getText().toString());
+        score += madeword.getText().toString().length();
+        String scoreString = String.format("%02d", score);
+        scoreText.setText(scoreString);
         successWindow.show();
+    }
+    public void showFailurePopUp() throws InterruptedException {
+        TextView totalScore = gameOverWindow.findViewById(R.id.totalScore);
+        totalScore.setText(scoreText.getText().toString());
+        failureWindow.show();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                failureWindow.cancel();
+                if(isOver == false)
+                {
+                    levelChange();
+                }
+
+            }
+        }, 2000);
+
     }
 
     private String dictionaryEntries() {
@@ -369,10 +422,7 @@ public class mainGrid extends AppCompatActivity {
     }
     public void successLevelChange(View view)
     {
-        Dialog successWindow;
-        successWindow = new Dialog(this);
-        successWindow.setContentView(R.layout.success_pop_up);
-        successWindow.dismiss();
+        successWindow.cancel();
         levelChange();
     }
     /*public void showMeaning(View view)
