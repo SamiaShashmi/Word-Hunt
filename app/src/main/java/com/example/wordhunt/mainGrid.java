@@ -39,8 +39,8 @@ public class mainGrid extends AppCompatActivity {
     public static int totalLevelCount;
     public static int lifeCount;
     public static boolean isAccepted = false;
-    private static final long totalTime = 16000;
-    public static long timeLeftinMiliSec = totalTime;
+    private static long totalTime;
+    public static long timeLeftinMiliSec;
     private TextView countdownText;
     public static CountDownTimer countDownTimer;
     public static boolean isFinished = false;
@@ -55,14 +55,39 @@ public class mainGrid extends AppCompatActivity {
     DatabaseReference ref;
     private boolean timeRunning;
     Score scores;
-    MediaPlayer song;
+    static MediaPlayer song;
+    static MediaPlayer mainSong;
+    static boolean isSong = false;
+    static boolean isMainSong = false;
     long maxid = 0;
+    MainActivity m;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_grid);
         gridGenerator(totalLevelCount);
         song= MediaPlayer.create(mainGrid.this,R.raw.ticking);
+        mainSong = MediaPlayer.create(mainGrid.this, R.raw.song);
+        if(!isMainSong)
+        {
+            mainSong.start();
+            isMainSong = true;
+        }
+        Intent mIntent = getIntent();
+        int intValue = mIntent.getIntExtra("level", 0);
+        if(intValue==1)
+        {
+            totalTime = 21000;
+        }
+        if(intValue==2)
+        {
+            totalTime = 16000;
+        }
+        if(intValue==3)
+        {
+            totalTime = 11000;
+        }
+        timeLeftinMiliSec = totalTime;
         lifeCount = 3;
         totalLevelCount = 1;
         isOver = false;
@@ -104,6 +129,7 @@ public class mainGrid extends AppCompatActivity {
 
     }
     public void gridGenerator(int totalLevelCount){
+
         dataList = findViewById(R.id.dataList);
 
         letters = new ArrayList<>();
@@ -234,6 +260,11 @@ public class mainGrid extends AppCompatActivity {
 
     public void levelChange()
     {
+        if(!isMainSong)
+        {
+            mainSong.start();
+            isMainSong = true;
+        }
         totalLevelCount++;
         TextView textLevel = (TextView) findViewById(R.id.levelCount);
         String totalString = textLevel.getText().toString();
@@ -280,6 +311,11 @@ public class mainGrid extends AppCompatActivity {
 
     private void showGameOverWindow()
     {
+        if(isSong)
+        {
+            song.pause();
+            isSong = false;
+        }
         isOver = true;
         TextView totalScore = gameOverWindow.findViewById(R.id.totalScore);
         totalScore.setText(scoreText.getText().toString());
@@ -325,7 +361,12 @@ public class mainGrid extends AppCompatActivity {
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.clock_blink);
         ImageView clock = findViewById(R.id.clock);
         clock.startAnimation(animation);*/
-
+        if(isMainSong)
+        {
+            mainSong.pause();
+            isMainSong = false;
+        }
+        isSong = true;
         song.start();
         ImageView clock = findViewById(R.id.clock);
         Animation animation = new AlphaAnimation(1, 0); //to change visibility from visible to invisible
@@ -427,6 +468,11 @@ public class mainGrid extends AppCompatActivity {
 
     public void showSuccessPopUp(String str)
     {
+        if(isSong)
+        {
+            song.pause();
+            isSong = false;
+        }
         TextView meaning = successWindow.findViewById(R.id.meanings);
         meaning.setText(str);
         TextView madeword = findViewById(R.id.madeWord);
@@ -439,6 +485,11 @@ public class mainGrid extends AppCompatActivity {
     }
     public void showFailurePopUp() throws InterruptedException {
 
+        if(isSong)
+        {
+            song.pause();
+            isSong = false;
+        }
         failureWindow.show();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

@@ -6,8 +6,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -155,16 +157,20 @@ public class HighScore extends AppCompatActivity {
 
               }
           });
-                //Toast.makeText(getApplicationContext(), Integer.toString(scoreList.size()), Toast.LENGTH_SHORT).show();
 
 
-        /**/
+
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(HighScore.this, MainActivity.class);
+        startActivity(intent);
 
 
-        /*Map.Entry<Integer,String> entry = map.entrySet().stream().findFirst().get();
-        namet.setText(entry.getValue());
-        scoret.setText(entry.getKey());
-       */
+    }
+    public void back(View view) {
+        Intent intent = new Intent(HighScore.this, MainActivity.class);
+        startActivity(intent);
 
 
     }

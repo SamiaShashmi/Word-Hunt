@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +20,10 @@ public class MainActivity extends AppCompatActivity {
     Button Help;
     Dialog playerNameWindow;
     static Boolean sound_check = false;
-    MediaPlayer song;
+    public MediaPlayer song;
+    RadioGroup radioGroup;
+    public int radioChecked = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         /*HighScore=findViewById(R.id.highscore);
         Exit=findViewById(R.id.exit);
         Help=findViewById(R.id.help);*/
+
 
         playerNameWindow = new Dialog(MainActivity.this);
         playerNameWindow.setContentView(R.layout.player_info_pop_up);
@@ -89,8 +94,28 @@ public class MainActivity extends AppCompatActivity {
         playerNameWindow.dismiss();
         Intent intent = new Intent(MainActivity.this, mainGrid.class);
         intent.putExtra("playerName", playerNameFromPopUp);
+        intent.putExtra("level", radioChecked);
+        song.pause();
         startActivity(intent);
     }
+    public void checkButton(View view)
+    {
+        radioGroup = playerNameWindow.findViewById(R.id.radio);
+        int radioId = 0;
+        radioId = radioGroup.getCheckedRadioButtonId();
+        switch (radioId) {
+            case R.id.easy:
+                radioChecked = 1;
+                break;
+            case R.id.medium:
+                radioChecked = 2;
+                break;
+            case R.id.hard:
+                radioChecked = 3;
+                break;
+        }
+    }
+
     public void openleaderBoard(View view)
     {
         Intent intent3 = new Intent(MainActivity.this, HighScore.class);
@@ -102,6 +127,17 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent3);
     }
 
+    public void exitGame(View view) {
+        finish();
+        System.exit(0);
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        System.exit(0);
+
+
+    }
 }
 
 
