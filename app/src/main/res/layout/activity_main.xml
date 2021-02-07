@@ -9,10 +9,33 @@
     android:gravity="center"
     tools:context=".MainActivity"
     >
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/alphabet"/>
+    <FrameLayout android:id="@+id/image_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="150dp"
+        android:layout_marginTop="5dp"
+        >
+        <ImageView android:id="@+id/mute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_mute"
+            android:onClick="mute"/>
+
+        <ImageView
+            android:id="@+id/unmute"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="unmute"
+            android:src="@drawable/ic_volume"/>
+    </FrameLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/alphabet"/>
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,7 +69,8 @@
             android:fontFamily="@font/marko_one"
             android:textSize="30dp"
             android:textStyle="bold"
-            app:backgroundTint="#EF80A6" />
+            app:backgroundTint="#EF80A6"
+            android:onClick="resumeMainMenu"/>
 
 
 
@@ -84,7 +108,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_exit"
-            android:onClick="exitGame"/>
+            android:id="@+id/exitbtn"/>
+
     </LinearLayout>
 
 </LinearLayout>

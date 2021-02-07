@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:background="@drawable/popupback">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:text="Game Paused.."
+        android:fontFamily="@font/marko_one"
+        android:textColor="@color/white"
+        android:layout_marginTop="30dp"
+        />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:text="Resume"
+        android:backgroundTint="@color/button"
+        android:fontFamily="@font/marko_one"
+        android:id="@+id/resumeBtn"
+        android:onClick="resumeGame"
+        />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:text="Main menu"
+        android:fontFamily="@font/marko_one"
+        android:backgroundTint="@color/button"
+        android:id="@+id/exitBtn"
+        android:onClick="gotoMainMenu"
+        />
+
+</LinearLayout>
