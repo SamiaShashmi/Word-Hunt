@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -54,12 +55,14 @@ public class mainGrid extends AppCompatActivity {
     DatabaseReference ref;
     private boolean timeRunning;
     Score scores;
+    MediaPlayer song;
     long maxid = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_grid);
         gridGenerator(totalLevelCount);
+        song= MediaPlayer.create(mainGrid.this,R.raw.ticking);
         lifeCount = 3;
         totalLevelCount = 1;
         isOver = false;
@@ -300,6 +303,7 @@ public class mainGrid extends AppCompatActivity {
     }
     private void newCountDown(int seconds, String timeLeft)
     {
+        song.pause();
         timeLeft = String.format("%02d", seconds);
         countdownText.setText(timeLeft);
         Handler handler = new Handler();
@@ -321,6 +325,8 @@ public class mainGrid extends AppCompatActivity {
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.clock_blink);
         ImageView clock = findViewById(R.id.clock);
         clock.startAnimation(animation);*/
+
+        song.start();
         ImageView clock = findViewById(R.id.clock);
         Animation animation = new AlphaAnimation(1, 0); //to change visibility from visible to invisible
         animation.setDuration(600); //1 second duration for each animation cycle

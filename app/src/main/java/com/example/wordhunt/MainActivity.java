@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,18 +18,28 @@ public class MainActivity extends AppCompatActivity {
     Button Exit;
     Button Help;
     Dialog playerNameWindow;
+    static Boolean sound_check = false;
+    MediaPlayer song;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         NewGame=findViewById(R.id.newgame);
         Resume=findViewById(R.id.resume);
-        HighScore=findViewById(R.id.highscore);
+        /*HighScore=findViewById(R.id.highscore);
         Exit=findViewById(R.id.exit);
-        Help=findViewById(R.id.help);
+        Help=findViewById(R.id.help);*/
 
         playerNameWindow = new Dialog(MainActivity.this);
         playerNameWindow.setContentView(R.layout.player_info_pop_up);
+
+        if(sound_check == false)
+        {
+            song = MediaPlayer.create(MainActivity.this,R.raw.song);
+            song.start();
+            sound_check = true;
+        }
+
 
         NewGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,13 +47,12 @@ public class MainActivity extends AppCompatActivity {
                 playerNameWindow.show();
             }
         });
-        HighScore.setOnClickListener(new View.OnClickListener() {
+        /*HighScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent3 = new Intent(MainActivity.this, HighScore.class);
-                startActivity(intent3);
+
             }
-        });
+        });*/
         /*Resume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
                 System.exit(0);
             }
         });*/
-        Help.setOnClickListener(new View.OnClickListener() {
+        /*Help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent4 = new Intent(MainActivity.this, Help1.class);
                 startActivity(intent4);
             }
-        });
+        });*/
 
     }
     public void openGame(View view)
@@ -80,6 +90,16 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, mainGrid.class);
         intent.putExtra("playerName", playerNameFromPopUp);
         startActivity(intent);
+    }
+    public void openleaderBoard(View view)
+    {
+        Intent intent3 = new Intent(MainActivity.this, HighScore.class);
+        startActivity(intent3);
+    }
+    public void openHelp(View view)
+    {
+        Intent intent3 = new Intent(MainActivity.this, Help1.class);
+        startActivity(intent3);
     }
 
 }

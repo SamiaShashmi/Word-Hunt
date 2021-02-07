@@ -37,6 +37,7 @@ public class HighScore extends AppCompatActivity {
     public Dialog highScoreWindow;
     public List<Score>scoreList;
     private SortedMap<Integer, String> map = new TreeMap<Integer, String>(Collections.reverseOrder());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
