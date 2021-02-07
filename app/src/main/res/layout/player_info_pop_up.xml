@@ -2,11 +2,12 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
-    android:layout_height="300dp"
+    android:layout_height="400dp"
     android:background="@drawable/popupback"
     android:layout_gravity="center"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="20dp"
@@ -24,6 +25,61 @@
         android:layout_marginTop="10dp"
         android:id="@+id/playerName"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="How pro are you?"
+        android:textColor="@color/white"
+        android:fontFamily="@font/marko_one"
+        android:textSize="18dp"
+        android:layout_marginTop="20dp"/>
+
+    <RadioGroup
+        android:id="@+id/radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        >
+
+
+        <RadioButton
+            android:id="@+id/easy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/marko_one"
+            android:onClick="checkButton"
+            android:text="Easy"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:button="@drawable/custom_radio"/>
+
+        <RadioButton
+            android:id="@+id/medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/marko_one"
+            android:onClick="checkButton"
+            android:text="Medium"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:button="@drawable/custom_radio"/>
+
+        <RadioButton
+            android:id="@+id/hard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/marko_one"
+            android:text="Hard"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:onClick="checkButton"
+            android:button="@drawable/custom_radio"/>
+
+
+    </RadioGroup>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
