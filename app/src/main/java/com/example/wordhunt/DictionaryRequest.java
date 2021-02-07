@@ -14,6 +14,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ *This class handles the actual matching of words that we make by choosing the letters.
+ * A dictionary API has been used to implement this class with its necessary functionality.
+ *
+ * @author Samia Islam, 1800412227
+ * @version 1.0
+ */
 public class DictionaryRequest extends AsyncTask<String, Integer, String> {
 
     Context context;
@@ -25,10 +32,16 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
         this.meaning = def;
         this.mngrd = d;
     }
+
+    /**
+     *This method retrieves the word from the online dictionary
+     *
+     * @param params
+     * @return string This returns a string that contains the word taken from the online database
+     */
     @Override
     protected String doInBackground(String... params) {
 
-        //TODO: replace with your own app id and app key
         final String app_id = "43119cad";
         final String app_key = "71bfe84ff9459be7953c871c192a4653";
         try {
@@ -56,6 +69,11 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
         }
     }
 
+    /**
+     * converts the retrived word into json format
+     *
+     * @param result
+     */
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);

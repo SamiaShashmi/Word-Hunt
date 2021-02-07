@@ -11,6 +11,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+/**
+ *this class controls the different elements in the splash screen
+ *
+ * @author Samia Islam, 180041237
+ */
 public class SplashScreen extends AppCompatActivity implements Animation.AnimationListener {
 
     LinearLayout linearLayout;
@@ -26,6 +31,9 @@ public class SplashScreen extends AppCompatActivity implements Animation.Animati
         linearLayout.startAnimation(animation);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
+            /**
+             * this method closes the splash screen and opens the main menu
+             */
             @Override
             public void run() {
                 Intent intent = new Intent(SplashScreen.this, MainActivity.class);

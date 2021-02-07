@@ -1,13 +1,11 @@
 package com.example.wordhunt;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -16,20 +14,18 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The mainGrid class controls all the elements that are visible when the game starts.
+ *
+ * @author Samia Islam, 180041237 and Jawad Islam, 180041223
+ */
 public class mainGrid extends AppCompatActivity {
 
     RecyclerView dataList;
@@ -40,29 +36,29 @@ public class mainGrid extends AppCompatActivity {
     public static int lifeCount;
     public static boolean isAccepted = false;
     private static final long totalTime = 16000;
-    public static long timeLeftinMiliSec = totalTime;
+    public long timeLeftinMiliSec = totalTime;
     private TextView countdownText;
     public static CountDownTimer countDownTimer;
     public static boolean isFinished = false;
     public Dialog successWindow;
     public Dialog failureWindow;
     public Dialog gameOverWindow;
-    public Dialog playerNameWindow;
     public static int score = 0;
     private TextView scoreText;
     public static boolean isOver;
-    public String nameString;
-    DatabaseReference ref;
+
     private boolean timeRunning;
-    Score scores;
-    MediaPlayer song;
-    long maxid = 0;
+
+    /**
+     * this method is called when this activity is created. it initializes different variables that will be used inside other methods later on.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_grid);
         gridGenerator(totalLevelCount);
-        song= MediaPlayer.create(mainGrid.this,R.raw.ticking);
         lifeCount = 3;
         totalLevelCount = 1;
         isOver = false;
@@ -80,29 +76,14 @@ public class mainGrid extends AppCompatActivity {
         gameOverWindow = new Dialog(this);
         gameOverWindow.setContentView(R.layout.game_over_pop_up);
 
-        playerNameWindow = new Dialog(this);
-        playerNameWindow.setContentView(R.layout.player_info_pop_up);
-
-        ref = FirebaseDatabase.getInstance().getReference().child("Score");
-        scores = new Score();
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                    maxid = (snapshot.getChildrenCount());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        Intent intent = getIntent();
-        nameString = intent.getExtras().getString("playerName");
-
-
     }
+
+    /**
+     * the gridGenerator method generates the grid with random letters from the english alphabet. But if a game was resumed then it will
+     * keep the grid as it is and not make a new random grid.
+     *
+     * @param totalLevelCount
+     */
     public void gridGenerator(int totalLevelCount){
         dataList = findViewById(R.id.dataList);
 
@@ -194,8 +175,10 @@ public class mainGrid extends AppCompatActivity {
     }
 
 
-
-
+    /**
+     * this method starts the timer in the game that says how long a round lasts
+     *
+     */
     private void startTimer()
     {
         countDownTimer = new CountDownTimer(timeLeftinMiliSec, 1000) {
@@ -213,6 +196,10 @@ public class mainGrid extends AppCompatActivity {
         timeRunning = true;
     }
 
+    /**
+     * this method updates the text shown on the screen by updating it every second and displaying it
+     *
+     */
     private void updateCountDownText()
     {
         int seconds = (int) timeLeftinMiliSec / 1000;
@@ -232,6 +219,10 @@ public class mainGrid extends AppCompatActivity {
         }
     }
 
+    /**
+     *this method changes the level when a word has been successfully submitted or when we have failed but still have a life left
+     *
+     */
     public void levelChange()
     {
         totalLevelCount++;
@@ -247,6 +238,9 @@ public class mainGrid extends AppCompatActivity {
         resetTimer();
     }
 
+    /**
+     * this method resets the timer to be used in the new level
+     */
     private void resetTimer()
     {
         countDownTimer.cancel();
@@ -255,6 +249,11 @@ public class mainGrid extends AppCompatActivity {
         updateCountDownText();
     }
 
+    /**
+     * this method decrements the hearts which are the number of times we can fail in an attempt to find a word.
+     * this decrement is done when we run out of time or we submit something that is not a word or when we use a hint
+     *
+     */
     public void decrementLife()
     {
         lifeCount--;
@@ -271,39 +270,38 @@ public class mainGrid extends AppCompatActivity {
         }
         if(lifeCount == 0)
         {
-            ImageView life2 = findViewById(R.id.life1);
-            life2.setVisibility(View.INVISIBLE);
             showGameOverWindow();
         }
 
     }
 
+    /**
+     * this method shows the pop-up window when our game is over
+     */
     private void showGameOverWindow()
     {
         isOver = true;
-        TextView totalScore = gameOverWindow.findViewById(R.id.totalScore);
-        totalScore.setText(scoreText.getText().toString());
         gameOverWindow.show();
         countDownTimer.cancel();
-        storeScore();
     }
-    public void storeScore()
-    {
-        String scoreString = scoreText.getText().toString();
-        scores.setName(nameString);
-        scores.setScore(scoreString);
-        ref.child("player" + String.valueOf(maxid + 1)).setValue(scores);
 
-    }
+    /**
+     *this method closes the pop-up and takes us to the main menu
+     */
     public void cancelGOPopUp()
     {
         gameOverWindow.cancel();
-        Intent intent = new Intent(mainGrid.this, MainActivity.class);
+        Intent intent = new Intent(mainGrid.this, SplashScreen.class);
         startActivity(intent);
     }
+
+    /**
+     * this method shows the failure pop-up when we run out of time
+     * @param seconds   the number of seconds left on the timer
+     * @param timeLeft
+     */
     private void newCountDown(int seconds, String timeLeft)
     {
-        song.pause();
         timeLeft = String.format("%02d", seconds);
         countdownText.setText(timeLeft);
         Handler handler = new Handler();
@@ -319,14 +317,15 @@ public class mainGrid extends AppCompatActivity {
         }, 1000);
     }
 
+    /**
+     * this method makes the clock blink when timer reaches a certain threshold
+     */
     private void clockBlink()
     {
        /* Animation animation;
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.clock_blink);
         ImageView clock = findViewById(R.id.clock);
         clock.startAnimation(animation);*/
-
-        song.start();
         ImageView clock = findViewById(R.id.clock);
         Animation animation = new AlphaAnimation(1, 0); //to change visibility from visible to invisible
         animation.setDuration(600); //1 second duration for each animation cycle
@@ -337,6 +336,10 @@ public class mainGrid extends AppCompatActivity {
 
     }
 
+    /**
+     * this method highlights the letters that can be used to make a word
+     * @param view
+     */
     public void highlight(View view)
     {
 
@@ -360,8 +363,7 @@ public class mainGrid extends AppCompatActivity {
         highlight2.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
         highlight3.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
         highlight4.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
-        decrementLife();
-        /*if(lifeCount == 3)
+        if(lifeCount == 3)
         {
             ImageView life3 = findViewById(R.id.life3);
             life3.setVisibility(View.INVISIBLE);
@@ -372,15 +374,23 @@ public class mainGrid extends AppCompatActivity {
             ImageView life2 = findViewById(R.id.life2);
             life2.setVisibility(View.INVISIBLE);
             lifeCount--;
-        }*/
+        }
     }
 
+    /**
+     * this method deletes the word when submit is pressed
+     * @param view
+     */
     public void deleteMadeWord(View view) {
         TextView madeWordText = findViewById(R.id.madeWord);
         String madeWordString = madeWordText.getText().toString();
         madeWordString = madeWordString.substring(0, madeWordString.length() - 1);
         madeWordText.setText(madeWordString);
     }
+
+    /**
+     * this method animates the bulb when time reaches a certain threshold
+     */
     private void bulbScale()
     {
         ImageView bulb = findViewById(R.id.bulb);
@@ -392,6 +402,12 @@ public class mainGrid extends AppCompatActivity {
         animation.setDuration(500);
         bulb.startAnimation(animation);
     }
+
+    /**
+     * this method checks if the word is in out dictionary or not
+     * @param view
+     * @throws InterruptedException
+     */
     public void checkValidity(View view) throws InterruptedException {
         countDownTimer.cancel();
         TextView meaning = successWindow.findViewById(R.id.meanings);
@@ -425,6 +441,10 @@ public class mainGrid extends AppCompatActivity {
         }
     }
 
+    /**
+     * this method displays the success pop-up when we successfully submit a proper word
+     * @param str   the word that we have submitted
+     */
     public void showSuccessPopUp(String str)
     {
         TextView meaning = successWindow.findViewById(R.id.meanings);
@@ -437,8 +457,14 @@ public class mainGrid extends AppCompatActivity {
         scoreText.setText(scoreString);
         successWindow.show();
     }
-    public void showFailurePopUp() throws InterruptedException {
 
+    /**
+     * this method displays the failure pop-up
+     * @throws InterruptedException
+     */
+    public void showFailurePopUp() throws InterruptedException {
+        TextView totalScore = gameOverWindow.findViewById(R.id.totalScore);
+        totalScore.setText(scoreText.getText().toString());
         failureWindow.show();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -454,6 +480,10 @@ public class mainGrid extends AppCompatActivity {
 
     }
 
+    /**
+     * this method shows the meaning of the word in the success window by retrieving it from the dictionary API
+     * @return  returns the data retrieved
+     */
     private String dictionaryEntries() {
         TextView madeword = findViewById(R.id.madeWord);
         /*Dialog successWindow;
@@ -468,6 +498,11 @@ public class mainGrid extends AppCompatActivity {
         final String word_id = word.toLowerCase();
         return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
     }
+
+    /**
+     * this method closed the success window and starts the new levels
+     * @param view
+     */
     public void successLevelChange(View view)
     {
         successWindow.cancel();

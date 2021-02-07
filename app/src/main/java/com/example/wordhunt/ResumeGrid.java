@@ -35,7 +35,7 @@ public class ResumeGrid extends AppCompatActivity {
     public static int lifeCount;
     public static boolean isAccepted = false;
     private static final long totalTime = 16000;
-    private long timeLeftinMiliSec;
+    public long timeLeftinMiliSec;
     private TextView countdownText;
     public static CountDownTimer countDownTimer;
     public static boolean isFinished = false;
@@ -58,7 +58,7 @@ public class ResumeGrid extends AppCompatActivity {
         lifeCount = mainGrid.lifeCount;
         totalLevelCount = mainGrid.totalLevelCount;
         isOver = mainGrid.isOver;
-        timeLeftinMiliSec = mainGrid.timeLeftinMiliSec;
+//        timeLeftinMiliSec = mainGrid.timeLeftinMiliSec;
         score = mainGrid.score;
         countdownText = findViewById(R.id.resumetimer);
         startTimer();

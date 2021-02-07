@@ -20,6 +20,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     LayoutInflater inflater;
     Activity activity;
 
+    /**
+     *
+     * @param act
+     * @param ctx
+     * @param ltr
+     */
     public Adapter(Activity act, Context ctx, List<String> ltr)
     {
         this.activity = act;

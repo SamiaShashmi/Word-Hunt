@@ -10,6 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import static com.example.wordhunt.mainGrid.isOver;
+
+/**
+ *this is the main activity class that controls all the functionalities of the components used in it
+ *
+ * @author Samia Islam, 180041237
+ */
 public class MainActivity extends AppCompatActivity {
 
     Button NewGame;
@@ -20,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
     Dialog playerNameWindow;
     static Boolean sound_check = false;
     MediaPlayer song;
+
+    /**
+     * this method is called when the activity is created
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         playerNameWindow = new Dialog(MainActivity.this);
         playerNameWindow.setContentView(R.layout.player_info_pop_up);
 
-        if(sound_check == false)
+        if(!sound_check)
         {
             song = MediaPlayer.create(MainActivity.this,R.raw.song);
             song.start();
@@ -42,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         NewGame.setOnClickListener(new View.OnClickListener() {
+            /**
+             * this method controls what happens when the New game button is pressed.
+             * it opens up the window where the player is prompted to give their name
+             *
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 playerNameWindow.show();
@@ -82,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
     }
+
+    /**
+     * this method takes the name as input and then starts the game
+     *
+     * @param view
+     */
     public void openGame(View view)
     {
         EditText e = playerNameWindow.findViewById(R.id.playerName);
@@ -91,17 +116,40 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("playerName", playerNameFromPopUp);
         startActivity(intent);
     }
+
+    /**
+     * this method controls what happens when the leaderboard button is pressed by displaying
+     * it shows the leaderboard
+     *
+     * @param view
+     */
     public void openleaderBoard(View view)
     {
         Intent intent3 = new Intent(MainActivity.this, HighScore.class);
         startActivity(intent3);
     }
+
+    /**
+     * this method redirects the user to the instructions that are required to play the game
+     *
+     * @param view
+     */
     public void openHelp(View view)
     {
         Intent intent3 = new Intent(MainActivity.this, Help1.class);
         startActivity(intent3);
     }
 
+    /**
+     * this method resumes the game from a previously saved state if the game had not been over yet
+     *
+     * @param view
+     */
+    public void resumeMainMenu(View view) {
+        isOver = false;
+        Intent intent = new Intent(MainActivity.this, mainGrid.class);
+        startActivity(intent);
+    }
 }
 
 

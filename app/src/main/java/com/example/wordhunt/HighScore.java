@@ -29,6 +29,12 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+/**
+ *The highscore class stores the highscore in the database
+ *
+ * @author Samia Islam, 1800412237
+ */
+
 public class HighScore extends AppCompatActivity {
 
     TextView n1, n2, n3, n4, n5, s1, s2, s3, s4, s5;
@@ -38,6 +44,11 @@ public class HighScore extends AppCompatActivity {
     public List<Score>scoreList;
     private SortedMap<Integer, String> map = new TreeMap<Integer, String>(Collections.reverseOrder());
 
+    /**
+     * this method is called when the activity is created
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +73,14 @@ public class HighScore extends AppCompatActivity {
         ref = db.getReference().child("Score");
 
         ref.addValueEventListener(new ValueEventListener() {
-              @Override
+
+            /**
+             * this method retrivces the data from the firebase database
+             * by using the snapshot of the data
+             *
+             * @param snapshot
+             */
+            @Override
               public void onDataChange(@NonNull DataSnapshot snapshot) {
                   for(DataSnapshot dataSnapshot : snapshot.getChildren())
                   {

@@ -9,7 +9,19 @@ import android.widget.Button;
 
 public class Help6 extends AppCompatActivity {
 
+    /**
+     * This class is contains the sixth page of the 7 instructions pages
+     *
+     * @author Kashifa Hussain, 180041227
+     */
+
     Button next;
+
+    /**
+     * this method is called when the activity is created
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

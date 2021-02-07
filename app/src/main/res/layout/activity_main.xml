@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,19 +7,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".MainActivity"
-    >
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/alphabet"/>
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginTop="0dp">
+        android:background="@drawable/background" >
+
+
+
 
         <Button
             android:id="@+id/newgame"
@@ -28,12 +28,11 @@
             android:layout_marginTop="50dp"
             android:color="#771C1C"
             android:text="New Game"
-            android:textColor="@color/black"
+            android:textColor="@color/blue"
             android:fontFamily="@font/marko_one"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:textStyle="bold"
-            app:backgroundTint="#EF80A6"
-            />
+            app:backgroundTint="#f8f8ff" />
 
         <Button
             android:id="@+id/resume"
@@ -42,48 +41,52 @@
             android:layout_marginTop="20dp"
             android:color="#771C1C"
             android:text="Resume"
-            android:textColor="@color/black"
+            android:textColor="@color/blue"
             android:fontFamily="@font/marko_one"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:textStyle="bold"
-            app:backgroundTint="#EF80A6" />
+            app:backgroundTint="#f8f8ff" />
 
+        <Button
+            android:id="@+id/highscore"
+            android:layout_width="288dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:color="#771C1C"
+            android:text="High Score"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/marko_one"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:backgroundTint="#f8f8ff"/>
 
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="288dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:color="#771C1C"
+            android:text="Exit"
+            android:fontFamily="@font/marko_one"
+            android:textColor="@color/blue"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:backgroundTint="#f8f8ff" />
 
-
-
-
+        <Button
+            android:id="@+id/help"
+            android:layout_width="288dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="Help"
+            android:fontFamily="@font/marko_one"
+            android:textColor="@color/blue"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:backgroundTint="#F8F6F6" />
 
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_podium"
-            android:layout_marginRight="100dp"
-            android:onClick="openleaderBoard"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_chat"
-            android:onClick="openHelp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="30dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_exit"/>
-    </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

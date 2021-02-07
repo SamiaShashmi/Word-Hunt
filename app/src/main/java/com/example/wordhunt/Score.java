@@ -1,5 +1,10 @@
 package com.example.wordhunt;
 
+/**
+ * this is the base class for the score that we store
+ *
+ * @author Samia Islam, 180041237
+ */
 public class Score {
     private String name;
     private String score;
