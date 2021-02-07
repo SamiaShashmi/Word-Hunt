@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
                 playerNameWindow.show();
             }
         });
+        HighScore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent3 = new Intent(MainActivity.this, HighScore.class);
+                startActivity(intent3);
+            }
+        });
         /*Resume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,13 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
-        HighScore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent3 = new Intent(MainActivity.this, FromHighScore.class);
-                startActivity(intent3);
-            }
-        });
+
         Exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

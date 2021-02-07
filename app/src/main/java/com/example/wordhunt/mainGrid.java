@@ -1,5 +1,6 @@
 package com.example.wordhunt;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,8 +19,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +54,7 @@ public class mainGrid extends AppCompatActivity {
     DatabaseReference ref;
     private boolean timeRunning;
     Score scores;
+    long maxid = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +83,18 @@ public class mainGrid extends AppCompatActivity {
         ref = FirebaseDatabase.getInstance().getReference().child("Score");
         scores = new Score();
 
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                    maxid = (snapshot.getChildrenCount());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         Intent intent = getIntent();
         nameString = intent.getExtras().getString("playerName");
 
@@ -272,7 +289,7 @@ public class mainGrid extends AppCompatActivity {
         String scoreString = scoreText.getText().toString();
         scores.setName(nameString);
         scores.setScore(scoreString);
-        ref.child("player").setValue(scores);
+        ref.child("player" + String.valueOf(maxid + 1)).setValue(scores);
 
     }
     public void cancelGOPopUp()
