@@ -42,12 +42,13 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         >
 
 
         <RadioButton
             android:id="@+id/easy"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/marko_one"
             android:onClick="checkButton"
@@ -71,12 +72,12 @@
             android:id="@+id/hard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:button="@drawable/custom_radio"
             android:fontFamily="@font/marko_one"
+            android:onClick="checkButton"
             android:text="Hard"
             android:textColor="@color/white"
-            android:textSize="15dp"
-            android:onClick="checkButton"
-            android:button="@drawable/custom_radio"/>
+            android:textSize="15dp" />
 
 
     </RadioGroup>
@@ -87,7 +88,7 @@
         android:backgroundTint="@color/button"
         android:fontFamily="@font/marko_one"
         android:layout_marginTop="25dp"
-        android:onClick="openGame"
+        android:id="@+id/startBtn"
         />
 
 </LinearLayout>

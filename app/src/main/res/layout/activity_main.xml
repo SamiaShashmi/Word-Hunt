@@ -44,11 +44,22 @@
         android:gravity="center"
         android:layout_marginTop="0dp">
 
-        <Button
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_play_button"
+            android:id="@+id/newgame"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            />
+
+
+        <!--<Button
             android:id="@+id/newgame"
             android:layout_width="288dp"
             android:layout_height="50dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp"
             android:color="#771C1C"
             android:text="New Game"
             android:textColor="@color/black"
@@ -56,21 +67,21 @@
             android:textSize="30dp"
             android:textStyle="bold"
             app:backgroundTint="#EF80A6"
-            />
+            />-->
 
-        <Button
-            android:id="@+id/resume"
-            android:layout_width="288dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:color="#771C1C"
-            android:text="Resume"
-            android:textColor="@color/black"
-            android:fontFamily="@font/marko_one"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            app:backgroundTint="#EF80A6"
-            android:onClick="resumeMainMenu"/>
+<!--        <Button-->
+<!--            android:id="@+id/resume"-->
+<!--            android:layout_width="288dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:color="#771C1C"-->
+<!--            android:text="Resume"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:fontFamily="@font/marko_one"-->
+<!--            android:textSize="30dp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:backgroundTint="#EF80A6"-->
+<!--            android:onClick="resumeMainMenu"/>-->
 
 
 
@@ -108,7 +119,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_exit"
-            android:id="@+id/exitbtn"/>
+            android:id="@+id/exitbtn"
+            android:onClick="exit"/>
 
     </LinearLayout>
 

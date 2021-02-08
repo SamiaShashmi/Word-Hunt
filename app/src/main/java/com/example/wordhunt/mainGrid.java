@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SyncAdapterType;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -26,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -39,32 +43,104 @@ public class mainGrid extends AppCompatActivity {
     public static int totalLevelCount;
     public static int lifeCount;
     public static boolean isAccepted = false;
-    private static final long totalTime = 16000;
-    public static long timeLeftinMiliSec = totalTime;
+    private static long totalTime;
+    public static long timeLeftinMiliSec;
     private TextView countdownText;
     public static CountDownTimer countDownTimer;
+    public static CountDownTimer countDownTimer2;
     public static boolean isFinished = false;
     public Dialog successWindow;
     public Dialog failureWindow;
     public Dialog gameOverWindow;
     public Dialog playerNameWindow;
-    public static int score = 0;
+    public Dialog pauseWindow;
+    public static int score;
     private TextView scoreText;
-    public static boolean isOver;
+    public static boolean isOver = false;
+    public static boolean isShared = false;
     public String nameString;
     DatabaseReference ref;
     private boolean timeRunning;
     Score scores;
-    MediaPlayer song;
+    static MediaPlayer song;
+    static MediaPlayer mainSong;
+    static boolean isSong = false;
+    static boolean isMainSong = false;
+    static boolean iscount2 = false;
+    static boolean iscount = false;
     long maxid = 0;
+    MainActivity m;
+
+    public static String remainingTime;
+    public static long remTime;
+    public static long actRemTime;
+    public static String savedScore;
+    public static String pausedGrid;
+    public static String newGrid;
+
+    ImageView mute;
+    ImageView unmute;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_grid);
+
+        int y = 0;
+        y = getIntent().getExtras().getInt("share");
+        SharedPreferences sharedPreferences = mainGrid.this.getPreferences(Context.MODE_PRIVATE);
+        if(y == 1){
+            totalTime = sharedPreferences.getLong("timer", 0);
+            score = Integer.parseInt(sharedPreferences.getString("score", "score not found"));
+            lifeCount = sharedPreferences.getInt("life", 0);
+            totalLevelCount = sharedPreferences.getInt("level", 0);
+            newGrid = sharedPreferences.getString("grid", "");
+            System.out.println(totalTime);
+            System.out.println(score);
+            System.out.println(lifeCount);
+            System.out.println(totalLevelCount);
+            System.out.println(newGrid);
+
+        } else{
+            Intent mIntent = getIntent();
+            int intValue = mIntent.getIntExtra("level", 0);
+            if(intValue==1)
+            {
+                totalTime = 21000;
+            }
+            if(intValue==2)
+            {
+                totalTime = 16000;
+            }
+            if(intValue==3)
+            {
+                totalTime = 11000;
+            }
+            score = 0;
+            lifeCount = 3;
+            totalLevelCount = 1;
+        }
+
         gridGenerator(totalLevelCount);
+
         song= MediaPlayer.create(mainGrid.this,R.raw.ticking);
-        lifeCount = 3;
-        totalLevelCount = 1;
+        mainSong = MediaPlayer.create(mainGrid.this, R.raw.song);
+        Boolean isprev = getIntent().getExtras().getBoolean("isSong");
+        System.out.println(isprev);
+        /*if(isprev)
+        {
+            mainSong.start();
+            mainSong.setLooping(true);
+            isMainSong = true;
+        }*/
+        if(!isMainSong)
+        {
+            mainSong.start();
+            mainSong.setLooping(true);
+            isMainSong = true;
+        }
+
+        timeLeftinMiliSec = totalTime;
+        System.out.println(timeLeftinMiliSec);
         isOver = false;
         countdownText = findViewById(R.id.timer);
         startTimer();
@@ -82,6 +158,9 @@ public class mainGrid extends AppCompatActivity {
 
         playerNameWindow = new Dialog(this);
         playerNameWindow.setContentView(R.layout.player_info_pop_up);
+
+        pauseWindow = new Dialog(this);
+        pauseWindow.setContentView(R.layout.pause_pop_up);
 
         ref = FirebaseDatabase.getInstance().getReference().child("Score");
         scores = new Score();
@@ -103,7 +182,13 @@ public class mainGrid extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed() {
+        showPauseWindow();
+//        super.onBackPressed();
+    }
     public void gridGenerator(int totalLevelCount){
+
         dataList = findViewById(R.id.dataList);
 
         letters = new ArrayList<>();
@@ -114,79 +199,83 @@ public class mainGrid extends AppCompatActivity {
         String forDivByFour = "plan";
         String forDivByThree = "goat";
         String forRest = "seat";
-        for (int i = 0; i < 56; i++) {
-            if(i == 10 || i == 20 || i == 40 || i == 50)
-            {
-                if(totalLevelCount % 5 == 0 && i == 10){
-                    letters.add("" + "h");
+        /*if(isOver == false && isShared == true){
+            for(int k=0; k<56; k++){
+                String a = String.valueOf(newGrid.charAt(k));
+                letters.add("" + a);
+            }
+        } else*/{
+            for (int i = 0; i < 56; i++) {
+                if(i == 10 || i == 20 || i == 40 || i == 50)
+                {
+                    if(totalLevelCount % 5 == 0 && i == 10){
+                        letters.add("" + "h");
+                    }
+                    else if(totalLevelCount % 5 == 0 && i == 20){
+                        letters.add("" + "o");
+                    }
+                    else if(totalLevelCount % 5 == 0 && i == 40){
+                        letters.add("" + "m");
+                    }
+                    else if(totalLevelCount % 5 == 0 && i == 50){
+                        letters.add("" + "e");
+                    }
+                    else if(totalLevelCount % 4 == 0 && i == 10){
+                        letters.add("" + "p");
+                    }
+                    else if(totalLevelCount % 4 == 0 && i == 20){
+                        letters.add("" + "l");
+                    }
+                    else if(totalLevelCount % 4 == 0 && i == 40){
+                        letters.add("" + "a");
+                    }
+                    else if(totalLevelCount % 4 == 0 && i == 50){
+                        letters.add("" + "n");
+                    }
+                    else if(totalLevelCount % 3 == 0 && i == 10){
+                        letters.add("" + "g");
+                    }
+                    else if(totalLevelCount % 3 == 0 && i == 20){
+                        letters.add("" + "o");
+                    }
+                    else if(totalLevelCount % 3 == 0 && i == 40){
+                        letters.add("" + "a");
+                    }
+                    else if(totalLevelCount % 3 == 0 && i == 50){
+                        letters.add("" + "t");
+                    }
+                    else if(totalLevelCount % 2 == 0 && i == 10){
+                        letters.add("" + "b");
+                    }
+                    else if(totalLevelCount % 2 == 0 && i == 20){
+                        letters.add("" + "o");
+                    }
+                    else if(totalLevelCount % 2 == 0 && i == 40){
+                        letters.add("" + "a");
+                    }
+                    else if(totalLevelCount % 2 == 0 && i == 50){
+                        letters.add("" + "t");
+                    }
+                    else if(i == 10){
+                        letters.add("" + "s");
+                    }
+                    else if(i == 20){
+                        letters.add("" + "e");
+                    }
+                    else if(i == 40){
+                        letters.add("" + "a");
+                    }
+                    else if(i == 50){
+                        letters.add("" + "t");
+                    }
                 }
-                else if(totalLevelCount % 5 == 0 && i == 20){
-                    letters.add("" + "o");
-                }
-                else if(totalLevelCount % 5 == 0 && i == 40){
-                    letters.add("" + "m");
-                }
-                else if(totalLevelCount % 5 == 0 && i == 50){
-                    letters.add("" + "e");
-                }
-                else if(totalLevelCount % 4 == 0 && i == 10){
-                    letters.add("" + "p");
-                }
-                else if(totalLevelCount % 4 == 0 && i == 20){
-                    letters.add("" + "l");
-                }
-                else if(totalLevelCount % 4 == 0 && i == 40){
-                    letters.add("" + "a");
-                }
-                else if(totalLevelCount % 4 == 0 && i == 50){
-                    letters.add("" + "n");
-                }
-                else if(totalLevelCount % 3 == 0 && i == 10){
-                    letters.add("" + "g");
-                }
-                else if(totalLevelCount % 3 == 0 && i == 20){
-                    letters.add("" + "o");
-                }
-                else if(totalLevelCount % 3 == 0 && i == 40){
-                    letters.add("" + "a");
-                }
-                else if(totalLevelCount % 3 == 0 && i == 50){
-                    letters.add("" + "t");
-                }
-                else if(totalLevelCount % 2 == 0 && i == 10){
-                    letters.add("" + "b");
-                }
-                else if(totalLevelCount % 2 == 0 && i == 20){
-                    letters.add("" + "o");
-                }
-                else if(totalLevelCount % 2 == 0 && i == 40){
-                    letters.add("" + "a");
-                }
-                else if(totalLevelCount % 2 == 0 && i == 50){
-                    letters.add("" + "t");
-                }
-                else if(i == 10){
-                    letters.add("" + "s");
-                }
-                else if(i == 20){
-                    letters.add("" + "e");
-                }
-                else if(i == 40){
-                    letters.add("" + "a");
-                }
-                else if(i == 50){
-                    letters.add("" + "t");
+                else
+                {
+                    char rand = alphabet.charAt(r.nextInt(alphabet.length()));
+                    letters.add("" + rand);
                 }
             }
-            else
-            {
-                char rand = alphabet.charAt(r.nextInt(alphabet.length()));
-                letters.add("" + rand);
-            }
-
         }
-
-
         adapter = new Adapter(this, this, letters);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 8, GridLayoutManager.VERTICAL, false);
         dataList.setLayoutManager(gridLayoutManager);
@@ -211,6 +300,7 @@ public class mainGrid extends AppCompatActivity {
             }
         }.start();
         timeRunning = true;
+        iscount = true;
     }
 
     private void updateCountDownText()
@@ -234,6 +324,12 @@ public class mainGrid extends AppCompatActivity {
 
     public void levelChange()
     {
+        if(!isMainSong)
+        {
+            mainSong.start();
+            mainSong.setLooping(true);
+            isMainSong = true;
+        }
         totalLevelCount++;
         TextView textLevel = (TextView) findViewById(R.id.levelCount);
         String totalString = textLevel.getText().toString();
@@ -249,7 +345,16 @@ public class mainGrid extends AppCompatActivity {
 
     private void resetTimer()
     {
-        countDownTimer.cancel();
+        if(iscount)
+        {
+            countDownTimer.cancel();
+            iscount = false;
+        }
+        if(iscount2)
+        {
+            countDownTimer2.cancel();
+            iscount2 = false;
+        }
         timeLeftinMiliSec = totalTime;
         startTimer();
         updateCountDownText();
@@ -273,6 +378,7 @@ public class mainGrid extends AppCompatActivity {
         {
             ImageView life2 = findViewById(R.id.life1);
             life2.setVisibility(View.INVISIBLE);
+            isOver = true;
             showGameOverWindow();
         }
 
@@ -280,11 +386,26 @@ public class mainGrid extends AppCompatActivity {
 
     private void showGameOverWindow()
     {
-        isOver = true;
+        if(isSong)
+        {
+            song.pause();
+            isSong = false;
+        }
+
         TextView totalScore = gameOverWindow.findViewById(R.id.totalScore);
         totalScore.setText(scoreText.getText().toString());
         gameOverWindow.show();
-        countDownTimer.cancel();
+        if(iscount)
+        {
+            countDownTimer.cancel();
+            iscount = false;
+        }
+        if(iscount2)
+        {
+            countDownTimer2.cancel();
+            iscount2 = false;
+        }
+
         storeScore();
     }
     public void storeScore()
@@ -325,8 +446,21 @@ public class mainGrid extends AppCompatActivity {
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.clock_blink);
         ImageView clock = findViewById(R.id.clock);
         clock.startAnimation(animation);*/
+        if(isMainSong)
+        {
+            mainSong.pause();
+            isMainSong = false;
+        }
+        isSong = true;
+        if(iscount)
+        {
+            song.start();
+        }
+        if(iscount2)
+        {
+            song.start();
+        }
 
-        song.start();
         ImageView clock = findViewById(R.id.clock);
         Animation animation = new AlphaAnimation(1, 0); //to change visibility from visible to invisible
         animation.setDuration(600); //1 second duration for each animation cycle
@@ -393,7 +527,16 @@ public class mainGrid extends AppCompatActivity {
         bulb.startAnimation(animation);
     }
     public void checkValidity(View view) throws InterruptedException {
-        countDownTimer.cancel();
+        if(iscount)
+        {
+            countDownTimer.cancel();
+            iscount = false;
+        }
+        if(iscount2)
+        {
+            countDownTimer2.cancel();
+            iscount2 = false;
+        }
         TextView meaning = successWindow.findViewById(R.id.meanings);
         DictionaryRequest dR = new DictionaryRequest(this, meaning, mainGrid.this);
         url = dictionaryEntries();
@@ -427,6 +570,11 @@ public class mainGrid extends AppCompatActivity {
 
     public void showSuccessPopUp(String str)
     {
+        if(isSong)
+        {
+            song.pause();
+            isSong = false;
+        }
         TextView meaning = successWindow.findViewById(R.id.meanings);
         meaning.setText(str);
         TextView madeword = findViewById(R.id.madeWord);
@@ -439,7 +587,16 @@ public class mainGrid extends AppCompatActivity {
     }
     public void showFailurePopUp() throws InterruptedException {
 
-        failureWindow.show();
+        if(isSong)
+        {
+            song.pause();
+            isSong = false;
+        }
+        if(isOver == false)
+        {
+            failureWindow.show();
+        }
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -473,12 +630,87 @@ public class mainGrid extends AppCompatActivity {
         successWindow.cancel();
         levelChange();
     }
-    /*public void showMeaning(View view)
+    public void gotoMainMenu(View view)
     {
-        Dialog successWindow;
-        successWindow = new Dialog(this);
-        successWindow.setContentView(R.layout.success_pop_up);
-        TextView meaning = successWindow.findViewById(R.id.meanings);
-        meaning.setVisibility(View.VISIBLE);
-    }*/
+        mainSong.pause();
+        song.pause();
+        isMainSong = false;
+        isSong = false;
+
+        savedScore = scoreText.getText().toString();
+        System.out.println(savedScore);
+        pausedGrid = "";
+        for(int j = 0; j < 56; j++)
+            pausedGrid = pausedGrid + letters.get(j);
+
+        SharedPreferences sharedPreferences = mainGrid.this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putLong("timer", remTime);
+        editor.putString("score", savedScore);
+        editor.putInt("life", lifeCount);
+        editor.putString("grid", pausedGrid);
+        editor.putInt("level", totalLevelCount);
+        editor.apply();
+
+
+        isShared = true;
+        Intent intent = new Intent(mainGrid.this, MainActivity.class);
+        finish();
+        startActivity(intent);
+    }
+    public void showPauseWindow()
+    {
+        remainingTime = countdownText.getText().toString();
+        remTime = Long.parseLong(remainingTime);
+        System.out.println(remTime);
+        if(iscount)
+        {
+            countDownTimer.cancel();
+            iscount = false;
+        }
+        if(iscount2)
+        {
+            countDownTimer2.cancel();
+            iscount2 = false;
+        }
+        pauseWindow.show();
+    }
+
+    public void resumeGame(View view)
+    {
+        pauseWindow.cancel();
+        countDownTimer.cancel();
+//        countDownTimer.start();
+        actRemTime = remTime * 1000;
+        countDownTimer2 = new CountDownTimer(actRemTime, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                actRemTime = millisUntilFinished;
+                int seconds = (int) actRemTime / 1000;
+                String timeLeft = String.format("%02d", seconds);
+                countdownText.setText(timeLeft);
+
+                if(seconds == 1)
+                    newCountDown(seconds, timeLeft);
+
+                if(seconds <= 5)
+                    clockBlink();
+
+                if(seconds <= 8)
+                    bulbScale();
+
+            }
+            @Override
+            public void onFinish() {
+                timeRunning = false;
+            }
+        }.start();
+        iscount2 = true;
+        timeRunning = true;
+
+
+    }
+
+
 }

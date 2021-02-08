@@ -30,6 +30,7 @@ public class Help1 extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
                 Intent intent4 = new Intent(Help1.this, Help2.class);
                 startActivity(intent4);
             }

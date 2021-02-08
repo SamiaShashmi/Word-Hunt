@@ -44,18 +44,24 @@
             android:onClick="showMeaning"/>-->
 
 
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:layout_gravity="center"
+    >
+    <TextView
+        android:layout_width="280dp"
+        android:layout_height="180dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/marko_one"
+        android:textSize="20dp"
+        android:id="@+id/meanings"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        />
+</ScrollView>
 
-        <TextView
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:fontFamily="@font/marko_one"
-            android:textSize="20dp"
-            android:id="@+id/meanings"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            />
 
 
         <Button

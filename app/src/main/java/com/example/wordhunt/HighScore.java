@@ -181,12 +181,15 @@ public class HighScore extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
+
         Intent intent = new Intent(HighScore.this, MainActivity.class);
+        finish();
         startActivity(intent);
 
 
     }
     public void back(View view) {
+        finish();
         Intent intent = new Intent(HighScore.this, MainActivity.class);
         startActivity(intent);
 
