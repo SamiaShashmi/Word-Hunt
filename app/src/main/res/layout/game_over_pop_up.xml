@@ -40,16 +40,7 @@
 
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Menu"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/button"
-        android:fontFamily="@font/marko_one"
-        android:textSize="20dp"
-        android:layout_marginTop="30dp"
-        android:onClick="cancelGOPopUp"/>
+
 
 
 </LinearLayout>

@@ -182,6 +182,11 @@ public class MainActivity extends AppCompatActivity {
         int x = 1;
         Intent intent = new Intent(MainActivity.this, mainGrid.class);
         intent.putExtra("share", x);
+        intent.putExtra("level", radioChecked);
+        intent.putExtra("isSong", sound_check);
+        System.out.println(sound_check);
+        song.pause();
+        sound_check = false;
         startActivity(intent);
     }
     public void exit(View view)

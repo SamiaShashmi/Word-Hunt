@@ -55,7 +55,9 @@ public class mainGrid extends AppCompatActivity {
     public Dialog playerNameWindow;
     public Dialog pauseWindow;
     public static int score;
+    public static int intValue;
     private TextView scoreText;
+    private TextView textLevel;
     public static boolean isOver = false;
     public static boolean isShared = false;
     public String nameString;
@@ -94,15 +96,35 @@ public class mainGrid extends AppCompatActivity {
             lifeCount = sharedPreferences.getInt("life", 0);
             totalLevelCount = sharedPreferences.getInt("level", 0);
             newGrid = sharedPreferences.getString("grid", "");
+            nameString = sharedPreferences.getString("player", "ghost");
+            totalTime = totalTime * 1000;
             System.out.println(totalTime);
             System.out.println(score);
             System.out.println(lifeCount);
             System.out.println(totalLevelCount);
             System.out.println(newGrid);
+            if(lifeCount == 2)
+            {
+                ImageView life3 = findViewById(R.id.life3);
+                life3.setVisibility(View.INVISIBLE);
 
-        } else{
+            }
+            else if(lifeCount == 1)
+            {
+                ImageView life2 = findViewById(R.id.life2);
+                life2.setVisibility(View.INVISIBLE);
+            }
+            if(lifeCount == 0)
+            {
+                ImageView life2 = findViewById(R.id.life1);
+                life2.setVisibility(View.INVISIBLE);
+                isOver = true;
+            }
+
+        }
+        else{
             Intent mIntent = getIntent();
-            int intValue = mIntent.getIntExtra("level", 0);
+            intValue = mIntent.getIntExtra("level", 0);
             if(intValue==1)
             {
                 totalTime = 21000;
@@ -118,6 +140,7 @@ public class mainGrid extends AppCompatActivity {
             score = 0;
             lifeCount = 3;
             totalLevelCount = 1;
+            nameString = getIntent().getExtras().getString("playerName");
         }
 
         gridGenerator(totalLevelCount);
@@ -146,6 +169,12 @@ public class mainGrid extends AppCompatActivity {
         startTimer();
         updateCountDownText();
         scoreText = findViewById(R.id.score);
+        String scoreString = String.format("%02d", score);
+        scoreText.setText(scoreString);
+
+
+       textLevel = (TextView) findViewById(R.id.levelCount);
+       textLevel.setText(Integer.toString(totalLevelCount));
 
         successWindow = new Dialog(this);
         successWindow.setContentView(R.layout.success_pop_up);
@@ -178,7 +207,7 @@ public class mainGrid extends AppCompatActivity {
             }
         });
         Intent intent = getIntent();
-        nameString = intent.getExtras().getString("playerName");
+
 
 
     }
@@ -331,11 +360,9 @@ public class mainGrid extends AppCompatActivity {
             isMainSong = true;
         }
         totalLevelCount++;
-        TextView textLevel = (TextView) findViewById(R.id.levelCount);
         String totalString = textLevel.getText().toString();
-        String levelString = totalString.substring(0, totalString.length() - 3);
-        int currentlevel = Integer.parseInt(levelString) + 1;
-        String newLevel = Integer.toString(currentlevel) + "/50";
+        int currentlevel = Integer.parseInt(totalString) + 1;
+        String newLevel = Integer.toString(currentlevel);
         textLevel.setText(newLevel);
         TextView prevWord = (TextView) findViewById(R.id.madeWord);
         prevWord.setText("");
@@ -354,6 +381,18 @@ public class mainGrid extends AppCompatActivity {
         {
             countDownTimer2.cancel();
             iscount2 = false;
+        }
+        if(intValue==1)
+        {
+            totalTime = 21000;
+        }
+        if(intValue==2)
+        {
+            totalTime = 16000;
+        }
+        if(intValue==3)
+        {
+            totalTime = 11000;
         }
         timeLeftinMiliSec = totalTime;
         startTimer();
@@ -405,6 +444,17 @@ public class mainGrid extends AppCompatActivity {
             countDownTimer2.cancel();
             iscount2 = false;
         }
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                gameOverWindow.cancel();
+               Intent intent5 = new Intent(mainGrid.this, MainActivity.class);
+               finish();
+               startActivity(intent5);
+
+            }
+        }, 3000);
 
         storeScore();
     }
@@ -651,6 +701,7 @@ public class mainGrid extends AppCompatActivity {
         editor.putInt("life", lifeCount);
         editor.putString("grid", pausedGrid);
         editor.putInt("level", totalLevelCount);
+        editor.putString("player", nameString);
         editor.apply();
 
 

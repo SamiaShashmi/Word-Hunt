@@ -39,16 +39,16 @@
         <TextView
             android:id="@+id/levelCount"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:background="@color/white"
             android:fontFamily="@font/marko_one"
-            android:text="1/50"
-            android:textColor="@color/blue"
-            android:textSize="25dp"
+            android:padding="3dp"
+            android:text="1"
             android:textAlignment="center"
-            android:padding="8dp"
-            android:layout_gravity="center_vertical"
-            />
+            android:textColor="@color/blue"
+            android:textSize="25dp" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,15 +97,14 @@
                 android:src="@drawable/ic_money_bag"/>
 
             <TextView
+                android:id="@+id/score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:fontFamily="@font/marko_one"
                 android:layout_marginRight="30dp"
+                android:fontFamily="@font/marko_one"
                 android:text="00"
-                android:textSize="25dp"
-                android:id="@+id/score"
-                />
+                android:textSize="25dp" />
         </LinearLayout>
 
 
