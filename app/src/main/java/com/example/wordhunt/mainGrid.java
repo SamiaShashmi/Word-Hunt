@@ -54,6 +54,7 @@ public class mainGrid extends AppCompatActivity {
     public Dialog gameOverWindow;
     public Dialog playerNameWindow;
     public Dialog pauseWindow;
+    public Dialog resumeAlertWindow;
     public static int score;
     public static int intValue;
     private TextView scoreText;
@@ -103,6 +104,27 @@ public class mainGrid extends AppCompatActivity {
             System.out.println(lifeCount);
             System.out.println(totalLevelCount);
             System.out.println(newGrid);
+            if(totalTime <= 1000)
+            {
+                resumeAlertWindow = new Dialog(this);
+                resumeAlertWindow.setContentView(R.layout.resume_alert);
+                if(isSong)
+                {
+                    song.pause();
+                    isSong = false;
+                }
+                resumeAlertWindow.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        resumeAlertWindow.cancel();
+                        Intent intent5 = new Intent(mainGrid.this, MainActivity.class);
+                        finish();
+                        startActivity(intent5);
+
+                    }
+                }, 3000);
+            }
             if(lifeCount == 2)
             {
                 ImageView life3 = findViewById(R.id.life3);

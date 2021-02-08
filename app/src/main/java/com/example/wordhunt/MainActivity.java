@@ -139,11 +139,21 @@ public class MainActivity extends AppCompatActivity {
     public void openleaderBoard(View view)
     {
         Intent intent3 = new Intent(MainActivity.this, HighScore.class);
+        if(sound_check == true)
+        {
+            song.pause();
+            sound_check = false;
+        }
         startActivity(intent3);
     }
     public void openHelp(View view)
     {
         Intent intent3 = new Intent(MainActivity.this, Help1.class);
+        if(sound_check == true)
+        {
+            song.pause();
+            sound_check = false;
+        }
         startActivity(intent3);
     }
 

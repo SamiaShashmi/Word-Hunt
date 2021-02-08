@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:text="How expert are you?"
+        android:text="Choose difficulty level:"
         android:textColor="@color/white"
         android:fontFamily="@font/marko_one"
         android:textSize="18dp"

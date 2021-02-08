@@ -42,8 +42,8 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        final String app_id = "43119cad";
-        final String app_key = "71bfe84ff9459be7953c871c192a4653";
+        final String app_id = "20da6bb7";
+        final String app_key = "fe45e6db107546e5afee10c5f75962bc";
         try {
             URL url = new URL(params[0]);
             HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
