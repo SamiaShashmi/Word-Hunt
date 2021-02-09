@@ -1,7 +1,7 @@
 package com.example.wordhunt;
 
 /**
- * this is the base class for the score that we store
+ * this is the model class for the players' scores that we store
  *
  * @author Samia Islam, 180041237
  */

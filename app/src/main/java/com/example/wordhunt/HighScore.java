@@ -32,9 +32,9 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- *The highscore class stores the highscore in the database
+ *to retrieve the scores of the players to make the leaderboard
  *
- * @author Samia Islam, 1800412237
+ * @author Samia Islam, 180041237
  */
 
 public class HighScore extends AppCompatActivity {
@@ -47,7 +47,8 @@ public class HighScore extends AppCompatActivity {
     private SortedMap<Integer, String> map = new TreeMap<Integer, String>(Collections.reverseOrder());
 
     /**
-     * this method is called when the activity is created
+     * this method is called when the activity is created, at first the datas are stored into a list of Score objects,
+     * and then it is stored into a map to sort according to scores
      *
      * @param savedInstanceState
      */

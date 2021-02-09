@@ -34,6 +34,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * activity of main game intent
+ *
+ * @author Samia Islam, 180041237
+ */
+
 public class mainGrid extends AppCompatActivity {
 
     RecyclerView dataList;
@@ -89,9 +95,9 @@ public class mainGrid extends AppCompatActivity {
         setContentView(R.layout.activity_main_grid);
 
         int y = 0;
-        y = getIntent().getExtras().getInt("share");
+        y = getIntent().getExtras().getInt("share"); /// to be assured whether there is a saved game or not
         SharedPreferences sharedPreferences = mainGrid.this.getPreferences(Context.MODE_PRIVATE);
-        if(y == 1){
+        if(y == 1){ ///initializes by values of saved game to resume
             totalTime = sharedPreferences.getLong("timer", 0);
             score = Integer.parseInt(sharedPreferences.getString("score", "score not found"));
             lifeCount = sharedPreferences.getInt("life", 0);
@@ -133,11 +139,15 @@ public class mainGrid extends AppCompatActivity {
             }
             else if(lifeCount == 1)
             {
+                ImageView life3 = findViewById(R.id.life3);
+                life3.setVisibility(View.INVISIBLE);
                 ImageView life2 = findViewById(R.id.life2);
                 life2.setVisibility(View.INVISIBLE);
             }
             if(lifeCount == 0)
             {
+                ImageView life3 = findViewById(R.id.life3);
+                life3.setVisibility(View.INVISIBLE);
                 ImageView life2 = findViewById(R.id.life1);
                 life2.setVisibility(View.INVISIBLE);
                 isOver = true;
@@ -233,11 +243,24 @@ public class mainGrid extends AppCompatActivity {
 
 
     }
+
+    /**
+     * if the player press the back button of phone while the game is running, a pop up window will be opened
+     *
+     * @author Samia Islam, 180041237
+     */
     @Override
     public void onBackPressed() {
         showPauseWindow();
 //        super.onBackPressed();
     }
+
+    /**
+     * this function generates the grid of random letters, there will be random grids for each level
+     *
+     * @author Samia Islam, 180041237
+     * @param totalLevelCount (integer) to make different suggestions for different levels
+     */
     public void gridGenerator(int totalLevelCount){
 
         dataList = findViewById(R.id.dataList);
@@ -256,7 +279,8 @@ public class mainGrid extends AppCompatActivity {
                 letters.add("" + a);
             }
         } else*/{
-            for (int i = 0; i < 56; i++) {
+            for (int i = 0; i < 56; i++) { //to show suggestion, some indices from the grid is reserved
+                                            // to show a specific letter for each level
                 if(i == 10 || i == 20 || i == 40 || i == 50)
                 {
                     if(totalLevelCount % 5 == 0 && i == 10){
@@ -320,7 +344,7 @@ public class mainGrid extends AppCompatActivity {
                         letters.add("" + "t");
                     }
                 }
-                else
+                else ///for other indiices, random letters will be shown
                 {
                     char rand = alphabet.charAt(r.nextInt(alphabet.length()));
                     letters.add("" + rand);
@@ -333,9 +357,11 @@ public class mainGrid extends AppCompatActivity {
         dataList.setAdapter(adapter);
     }
 
-
-
-
+    /**
+     * if the game is started once, the timer will start running
+     *
+     * @author Samia Islam, 180041237
+     */
     private void startTimer()
     {
         countDownTimer = new CountDownTimer(timeLeftinMiliSec, 1000) {
@@ -353,6 +379,16 @@ public class mainGrid extends AppCompatActivity {
         timeRunning = true;
         iscount = true;
     }
+
+    /**
+     * This function will update the text where the time that is left is shown
+     *
+     * if the time reaches to 1 sec, new count down will be started
+     * if the time reaches to 5 sec, the timer CLOCK will start blinking
+     * if the time reaches to 8 sec, the SUGGESTION button will start highlighting
+     *
+     * @author Samia Islam, 180041237
+     */
 
     private void updateCountDownText()
     {
@@ -373,6 +409,12 @@ public class mainGrid extends AppCompatActivity {
         }
     }
 
+    /**
+     * once a level is finished, the level will be incremented and the text will be updated
+     * also the countdown will be started and new grid will be generated
+     *
+     * @author Samia Islam, 180041237
+     */
     public void levelChange()
     {
         if(!isMainSong)
@@ -391,6 +433,12 @@ public class mainGrid extends AppCompatActivity {
         gridGenerator(totalLevelCount);
         resetTimer();
     }
+
+    /**
+     * this funtion will reset the time based on the mode of the game
+     *
+     * @author Samia Islam, 180041237
+     */
 
     private void resetTimer()
     {
@@ -421,6 +469,13 @@ public class mainGrid extends AppCompatActivity {
         updateCountDownText();
     }
 
+    /**
+     * this function will decrement a life if the player fails to choose a valid word
+     * also it will decrement the images of heart
+     *
+     * @author Samia Islam, 180041237
+     */
+
     public void decrementLife()
     {
         lifeCount--;
@@ -444,6 +499,13 @@ public class mainGrid extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * if the game is over, a pop up window showing the total score will be opened for 3 seconds
+     * and the score will be stored in database
+     *
+     * @author Samia Islam, 180041237
+     */
 
     private void showGameOverWindow()
     {
@@ -480,6 +542,12 @@ public class mainGrid extends AppCompatActivity {
 
         storeScore();
     }
+
+    /**
+     * this function will store the score in database
+     *
+     * @author Samia Islam, 180041237
+     */
     public void storeScore()
     {
         String scoreString = scoreText.getText().toString();
@@ -488,12 +556,18 @@ public class mainGrid extends AppCompatActivity {
         ref.child("player" + String.valueOf(maxid + 1)).setValue(scores);
 
     }
-    public void cancelGOPopUp()
+    /*public void cancelGOPopUp()
     {
         gameOverWindow.cancel();
         Intent intent = new Intent(mainGrid.this, MainActivity.class);
         startActivity(intent);
-    }
+    }*/
+
+    /**
+     * if the player fails to find any word, new count down will be started for next level
+     * @param seconds
+     * @param timeLeft
+     */
     private void newCountDown(int seconds, String timeLeft)
     {
         song.pause();
@@ -502,16 +576,16 @@ public class mainGrid extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                try {
-                    showFailurePopUp();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                showFailurePopUp();
                 decrementLife();
             }
         }, 1000);
     }
 
+    /**
+     * if the remaining time for a level reaches to 5 seconds, the CLOCK will sart blinking
+     * and a clock ticking sound will start playing at the background
+     */
     private void clockBlink()
     {
        /* Animation animation;
@@ -534,6 +608,9 @@ public class mainGrid extends AppCompatActivity {
         }
 
         ImageView clock = findViewById(R.id.clock);
+        /**
+         * @author Kashifa K. Hossain, 180041227
+         */
         Animation animation = new AlphaAnimation(1, 0); //to change visibility from visible to invisible
         animation.setDuration(600); //1 second duration for each animation cycle
         animation.setInterpolator(new LinearInterpolator());
@@ -542,6 +619,14 @@ public class mainGrid extends AppCompatActivity {
         clock.startAnimation(animation); //to start animation
 
     }
+
+    /**
+     * if the SUGGESTION button is pressed, it will highlight the boxes by which a valid word can be made
+     * and a life will be decremented
+     *
+     * @author Samia Islam, 180041237
+     * @param view (imageview)
+     */
 
     public void highlight(View view)
     {
@@ -581,12 +666,26 @@ public class mainGrid extends AppCompatActivity {
         }*/
     }
 
+    /**
+     * if a player accidently press any wrong character, by pressing the DELETE button s(he) can delete the character
+     *
+     * @author Samia Islam, 180041237
+     * @param view
+     */
+
     public void deleteMadeWord(View view) {
         TextView madeWordText = findViewById(R.id.madeWord);
         String madeWordString = madeWordText.getText().toString();
         madeWordString = madeWordString.substring(0, madeWordString.length() - 1);
         madeWordText.setText(madeWordString);
     }
+
+    /**
+     * when the remaining time will reach to 8 seconds, the SUGGESTION button will start highlighting
+     *
+     * @author Samia Islam, 180041237
+     */
+
     private void bulbScale()
     {
         ImageView bulb = findViewById(R.id.bulb);
@@ -598,6 +697,14 @@ public class mainGrid extends AppCompatActivity {
         animation.setDuration(500);
         bulb.startAnimation(animation);
     }
+
+    /**
+     * the funtion will check if the word is valid or not by using an object of DictionaryRequest class
+     *
+     * @author Samia Islam, 180041237
+     * @param view (button)
+     * @throws InterruptedException
+     */
     public void checkValidity(View view) throws InterruptedException {
         if(iscount)
         {
@@ -640,6 +747,14 @@ public class mainGrid extends AppCompatActivity {
         }
     }
 
+    /**
+     * if the player succeeds to find a valid word within the given time, he/she will gain the score same as the length of the word
+     * and a pop up window will be opened containing the definition of that word
+     *
+     * @author Samia Islam, 180041237
+     * @param str the definition of that word
+     */
+
     public void showSuccessPopUp(String str)
     {
         if(isSong)
@@ -657,7 +772,13 @@ public class mainGrid extends AppCompatActivity {
         scoreText.setText(scoreString);
         successWindow.show();
     }
-    public void showFailurePopUp() throws InterruptedException {
+
+    /**
+     * if the player fails to find any valid word, it will show a pop up window for 3 seconds
+     *
+     * @author Samia Islam, 180041237
+     */
+    public void showFailurePopUp(){
 
         if(isSong)
         {
@@ -683,6 +804,13 @@ public class mainGrid extends AppCompatActivity {
 
     }
 
+    /**
+     * this function makes a URL to get the definition of the word made by the player
+     *
+     * @author Samia Islam, 180041237
+     * @return URL
+     */
+
     private String dictionaryEntries() {
         TextView madeword = findViewById(R.id.madeWord);
         /*Dialog successWindow;
@@ -697,15 +825,30 @@ public class mainGrid extends AppCompatActivity {
         final String word_id = word.toLowerCase();
         return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
     }
+
+    /**
+     *shuts down the pop up window showing the definition of the word
+     *
+     * @author Samia Islam, 180041237
+     * @param view (button)
+     */
     public void successLevelChange(View view)
     {
         successWindow.cancel();
         levelChange();
     }
+
+    /**
+     * if the player wants to go to the main menu while the game is running and presses the MAIN MENU button
+     * the values of the current game will be saved and main menu will be opened
+     *
+     * @author Shah Jawad Islam, 180041223
+     * @param view (button)
+     */
     public void gotoMainMenu(View view)
     {
-        mainSong.pause();
-        song.pause();
+        mainSong.stop();
+        song.stop();
         isMainSong = false;
         isSong = false;
 
@@ -732,6 +875,13 @@ public class mainGrid extends AppCompatActivity {
         finish();
         startActivity(intent);
     }
+
+    /**
+     * if the player press the back button when the game is running, a pop up window will be opened
+     * and the timer will be paused
+     *
+     * @author Shah Jawad Islam, 180041223
+     */
     public void showPauseWindow()
     {
         remainingTime = countdownText.getText().toString();
@@ -750,6 +900,12 @@ public class mainGrid extends AppCompatActivity {
         pauseWindow.show();
     }
 
+    /**
+     * if the player clicks the RESUME button, the game will start at its previous state
+     *
+     * @author Shah Jawad Islam, 180041223
+     * @param view (button)
+     */
     public void resumeGame(View view)
     {
         pauseWindow.cancel();

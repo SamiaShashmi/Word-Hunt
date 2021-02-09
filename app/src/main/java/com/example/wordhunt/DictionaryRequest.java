@@ -16,10 +16,9 @@ import org.json.JSONObject;
 
 /**
  *This class handles the actual matching of words that we make by choosing the letters.
- * A dictionary API has been used to implement this class with its necessary functionality.
+ * An API of Oxford Dictionary has been used to implement this class with its necessary functionality.
  *
- * @author Samia Islam, 1800412227
- * @version 1.0
+ * @author Samia Islam, 180041237
  */
 public class DictionaryRequest extends AsyncTask<String, Integer, String> {
 
@@ -34,10 +33,10 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
     }
 
     /**
-     *This method retrieves the word from the online dictionary
+     *this function does the internal activities to connect with the API using the API key
      *
      * @param params
-     * @return string This returns a string that contains the word taken from the online database
+     * @return string
      */
     @Override
     protected String doInBackground(String... params) {
@@ -70,8 +69,12 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
     }
 
     /**
-     * converts the retrived word into json format
+     * this function finds out the definition of the requested word from the JSON format
+     * and shows the definition at the pop up window
+     * if the requested word is an invalid word, then that means player fails
+     * and so the catch block runs and shows the failure pop up window and decrements a life
      *
+     * @author Samia Islam, 180041237
      * @param result
      */
     @Override
@@ -102,11 +105,8 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
 
             mainGrid.isAccepted = true;
         } catch (JSONException e) {
-            try {
-                mngrd.showFailurePopUp();
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            }
+
+            mngrd.showFailurePopUp();
             mngrd.decrementLife();
             //meaning.setText("null");
             e.printStackTrace();

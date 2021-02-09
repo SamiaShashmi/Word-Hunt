@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * This class is contains the second page of the 7 instructions pages
+ * This class contains the second page of the 7 instructions pages
  *
  * @author Kashifa Hussain, 180041227
  */

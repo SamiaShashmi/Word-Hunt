@@ -7,13 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
+/**
+ * This class is contains the final page of the 7 instructions pages
+ *
+ * @author Kashifa Hussain, 180041227
+ */
+
+
 public class Help7 extends AppCompatActivity {
 
-    /**
-     * This class is contains the final page of the 7 instructions pages
-     *
-     * @author Kashifa Hussain, 180041227
-     */
 
     Button next;
 
@@ -27,6 +30,12 @@ public class Help7 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help7);
         next=findViewById(R.id.next7);
+
+        /**
+         * if the FINISH button is pressed, it will close the activity and opens the main menu
+         *
+         * @author Kashifa K. Hossain, 180041227
+         */
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

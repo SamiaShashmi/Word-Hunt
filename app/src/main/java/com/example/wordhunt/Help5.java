@@ -7,13 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
+/**
+ * This class contains the fifth page of the 7 instructions pages
+ *
+ * @author Kashifa Hussain, 180041227
+ */
+
 public class Help5 extends AppCompatActivity {
 
-    /**
-     * This class is contains the fifth page of the 7 instructions pages
-     *
-     * @author Kashifa Hussain, 180041227
-     */
 
     Button next;
 

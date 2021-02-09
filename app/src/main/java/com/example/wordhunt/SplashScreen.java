@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 /**
- *this class controls the different elements in the splash screen
+ *this class shows an animation of the text 'Word Hun' while opening the app
  *
  * @author Samia Islam, 180041237
  */
@@ -32,7 +32,9 @@ public class SplashScreen extends AppCompatActivity implements Animation.Animati
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             /**
-             * this method closes the splash screen and opens the main menu
+             * this method shows the animation for 2 seconds and then closes the splash screen and opens the main menu
+             *
+             * @author Samia Islam, 180041237
              */
             @Override
             public void run() {

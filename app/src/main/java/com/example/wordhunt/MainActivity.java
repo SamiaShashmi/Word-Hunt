@@ -19,6 +19,12 @@ import android.widget.RadioGroup;
 
 import static com.example.wordhunt.mainGrid.isOver;
 
+/**
+ * main class that represents the activity of main menu
+ *
+ * @author Samia Islam, 180041237
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     ImageView NewGame;
@@ -59,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
 
         startGame = playerNameWindow.findViewById(R.id.startBtn);
 
+        /**
+         * if the START GAME button is clicked, the activity for new game will open
+         * it will pass the player name and the dificulty level chosen by the player from the pop up window
+         * @param v (button)
+         * @author Samia Islam, 180041237
+         */
+
         startGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
             sound_check = true;
         }
 
+        /**
+         * the function will open a pop up window where the player will entry his/her name and difficulty level
+         *
+         * @param view (imageView)
+         */
 
         NewGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,12 +114,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * if the player wants to exit by confirming the YES button, this function will close the app
+     * @param view
+     * @author Samia Islam, 180041237
+     */
+
     public void exitYes(View view)
     {
         finish();
         System.exit(0);
     }
-    public void openGame(View view)
+    /*public void openGame(View view)
     {
         EditText e = playerNameWindow.findViewById(R.id.playerName);
         String playerNameFromPopUp = e.getText().toString();
@@ -114,7 +138,15 @@ public class MainActivity extends AppCompatActivity {
         song.pause();
         sound_check = false;
         startActivity(intent);
-    }
+    }*/
+
+
+    /**
+     * this function determines the chosen difficulty level
+     * also if a radio button is checked, the function shuts dow the keyboard which has been open to get the player's name
+     * @author Kashifa K. Hossain, 180041227
+     * @param view (button)
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void checkButton(View view)
     {
@@ -136,6 +168,12 @@ public class MainActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    /**
+     * this function opens the activity of leaderboard, once the LEADERBOARD button is clicked
+     * @param view (imageView)
+     * @author Kashifa K. Hossain, 180041227
+     */
+
     public void openleaderBoard(View view)
     {
         Intent intent3 = new Intent(MainActivity.this, HighScore.class);
@@ -146,6 +184,12 @@ public class MainActivity extends AppCompatActivity {
         }
         startActivity(intent3);
     }
+
+    /**
+     * this function opens the activity of instruction, once the HELP button is clicked
+     * @param view (imageView)
+     * @author Kashifa K. Hossain, 180041227
+     */
     public void openHelp(View view)
     {
         Intent intent3 = new Intent(MainActivity.this, Help1.class);
@@ -157,7 +201,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent3);
     }
 
-
+    /**
+     * if one pressed the back button of the phone, this will exit the app
+     *
+     * @author Samia Islam, 180041237
+     */
     @Override
     public void onBackPressed() {
         finish();
@@ -165,6 +213,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * if the SILENT button is presses, the background sound will be muted and the SILENT button will be converted to VOLUME button
+     *
+     * @author Samia Islam, 180041237
+     * @param view (imageview)
+     */
     public void mute(View view)
     {
         if(sound_check == true)
@@ -176,6 +231,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * if the VOLUME button is presses, the background sound will be muted and the VOLUMR button will be converted to SILENT button
+     *
+     * @author Kashifa K. Hossain, 180041227
+     * @param view (imageview)
+     */
     public void unmute(View view)
     {
         if(sound_check == false)
@@ -187,6 +249,13 @@ public class MainActivity extends AppCompatActivity {
             unmuteimg.setVisibility(View.INVISIBLE);
         }
     }
+
+    /**
+     * if the RESUME button is pressed, the saved game will be started
+     *
+     * @author Shah Jawad Islam, 180041223
+     * @param view
+     */
     public void resumeMainMenu(View view) {
         isOver = false;
         int x = 1;
@@ -199,10 +268,25 @@ public class MainActivity extends AppCompatActivity {
         sound_check = false;
         startActivity(intent);
     }
+
+    /**
+     * if the EXIT button is pressed, a pop up window will be opened for confirmation
+     *
+     * @author Samia Islam, 180041237
+     * @param view (imageview)
+     */
     public void exit(View view)
     {
         exitWindow.show();
     }
+
+
+    /**
+     * if the NO button is clicked, the cofirmation pop up window will be shut down
+     *
+     * @author Samia Islam, 180041237
+     * @param view
+     */
     public void exitNo(View view)
     {
         exitWindow.dismiss();

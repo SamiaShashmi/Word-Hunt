@@ -15,12 +15,19 @@ import com.google.android.material.transition.Hold;
 
 import java.util.List;
 
+/**
+ * to generate the letter grid
+ *
+ * @author Samia Islam, 180041237
+ */
+
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     List<String> letters;
     LayoutInflater inflater;
     Activity activity;
 
     /**
+     *
      *
      * @param act
      * @param ctx

@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="For each level you will get 15 seconds to find a valid word.."
+            android:text="For each level you will get certain amount of time to find a valid word.."
             android:textSize="25dp"
             android:textColor="@color/blue"
             android:fontFamily="@font/marko_one"

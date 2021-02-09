@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * This class is contains the first page of the 7 instructions pages
+ * when the HELP button is clicked, this activity will start
+ * contains the first page of the 7 instructions pages
  *
  * @author Kashifa Hussain, 180041227
  */
