@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "924468064932",
+    "firebase_url": "https://sign-up-76d5f-default-rtdb.firebaseio.com",
+    "project_id": "sign-up-76d5f",
+    "storage_bucket": "sign-up-76d5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924468064932:android:f3527449fdacdf600eac31",
+        "android_client_info": {
+          "package_name": "com.example.wordhunt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "924468064932-notcq1r3is6ot6kfb8ts8ilf7d9duchi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3zCsHuaj5XQvwR2QzRqW482ts_naJG-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924468064932-notcq1r3is6ot6kfb8ts8ilf7d9duchi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
