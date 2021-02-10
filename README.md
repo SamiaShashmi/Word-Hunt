@@ -101,5 +101,5 @@ If the <i>Exit</i> button is pressed, then a confirmation window will be opened.
 
 
 
-### Last Few Words
+## Last Few Words
 This is a rough overview of the whole game. We tried our best to make the game interesting. We expect you will enjoy the game. Let's hope for the best. Assalamualaikum..
