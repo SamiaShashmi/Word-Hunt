@@ -88,12 +88,12 @@ If the <i>Leaderbord</i> button is pressed, then a leaderboard containing top 5 
 
 ## Instruction Pages
 If the <i>help</i> button is clicked, a detailed instruction will be provided.</br></br>
-    <img src="ScreenShots/instructions.png" height="200p" style="width:100%">
-    <img src="ScreenShots/instructions1.png" height="200p" style="width:100%">
-    <img src="ScreenShots/instructions2.png" height="200p" style="width:100%">
-    <img src="ScreenShots/instructions3.png" height="200p" style="width:100%">
-    <img src="ScreenShots/instruction4.png" height="200p" style="width:100%">
-    <img src="ScreenShots/instruction5.png" height="200p" style="width:100%">
+    <img src="ScreenShots/instructions.png" height="200p">
+    <img src="ScreenShots/instructions1.png" height="200p">
+    <img src="ScreenShots/instructions2.png" height="200p">
+    <img src="ScreenShots/instructions3.png" height="200p">
+    <img src="ScreenShots/instruction4.png" height="200p">
+    <img src="ScreenShots/instruction5.png" height="200p">
     
 ### Exit Confirmation
 If the <i>Exit</i> button is pressed, then a confirmation window will be opened. If the player chooses <i>No</i> button, then the window will disappear. Otherwise, if the <i>Yes</i> button is chosen, then the app will close.</br>
